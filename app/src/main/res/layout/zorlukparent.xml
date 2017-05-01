@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:weightSum="1">
+
+    <TextView
+        android:id="@+id/zorlukView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="#000000"
+        android:text="Hedef Zorlukların Seçimi:"
+        android:textSize="19sp" />
+
+    <TextView
+        android:id="@+id/hedefView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="19sp"
+        android:textColor="#000000"
+        android:text="              Hedef-1      Hedef-2         Hedef-3" />
+
+    <TextView
+        android:id="@+id/dereceView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="19sp"
+        android:textColor="#000000"
+        android:text="                  50               100                  150" />
+
+</LinearLayout>

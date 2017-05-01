@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.apo.hazirlaniyorum">
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="Not günlüğüm"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme"
+        >
+
+
+        <activity android:name=".GirisActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity android:name=".anaSayfa">
+            <intent-filter>
+                <action android:name=".ANASAYFA" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+
+        </activity>
+        <activity android:name=".kayit">
+            <intent-filter>
+                <action android:name=".KAYIT" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+
+        </activity>
+        <activity android:name=".tarihEkle">
+            <intent-filter>
+                <action android:name=".TARIHEKLE" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+
+        </activity>
+        <activity android:name=".veriYedekle">
+            <intent-filter>
+                <action android:name=".VERIYEDEKLE" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+
+        </activity>
+        <activity android:name=".hataBildirimi">
+            <intent-filter>
+                <action android:name=".HATABILDIRIMI" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+
+        </activity>
+        <activity android:name=".rapor">
+            <intent-filter>
+                <action android:name=".RAPOR" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+
+        </activity>
+        <activity android:name=".dersAyarlari">
+            <intent-filter>
+                <action android:name=".DERSAYARLARI" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+
+        </activity>
+
+
+
+    </application>
+
+</manifest>

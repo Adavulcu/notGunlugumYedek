@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:weightSum="1"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+
+    >
+
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="110dp"
+        android:weightSum="1">
+
+        <TextView
+            android:text="İCON"
+            android:layout_width="104dp"
+            android:layout_height="match_parent"
+            android:id="@+id/textView" />
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:text="YGS KALAN GÜN"
+                android:layout_width="match_parent"
+                android:layout_height="36dp"
+                android:id="@+id/textView4" />
+
+            <TextView
+                android:text="LYS KALAN GÜN"
+                android:layout_width="match_parent"
+                android:layout_height="32dp"
+                android:id="@+id/textView3"
+                tools:text="LYS KALAN GÜN" />
+
+            <TextView
+                android:text="BİTİRİLEN KONUS SAYISI"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/textView2" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <TabHost
+        android:id="@+id/anatab"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TabWidget
+                android:id="@android:id/tabs"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <FrameLayout
+                android:id="@android:id/tabcontent"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:id="@+id/YGS"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+                    <ExpandableListView
+                        android:id="@+id/exp_listYGS"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:divider="#0c2ad6"
+                        android:dividerHeight="2dp"
+                        android:childDivider="#99b9b8">
+                    </ExpandableListView>
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/LYS"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+                    <ExpandableListView
+                        android:id="@+id/exp_listLYS"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:divider="#0c2ad6"
+                        android:dividerHeight="2dp"
+                        android:childDivider="#99b9b8">>
+                    </ExpandableListView>
+
+                </LinearLayout>
+
+            </FrameLayout>
+        </LinearLayout>
+    </TabHost>
+
+</LinearLayout>

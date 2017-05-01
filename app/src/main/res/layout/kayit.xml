@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="173dp"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="155dp"
+            android:layout_height="466dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/adView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.02"
+                android:text="AD  *" />
+
+            <TextView
+                android:id="@+id/soyAdView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.02"
+                android:text="SOYAD  *" />
+
+            <TextView
+                android:id="@+id/epostaView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.02"
+                android:text="E-POSTA  *" />
+
+            <TextView
+                android:id="@+id/telView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.26"
+                android:text="TELEFON" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/adText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:text=" " />
+
+            <EditText
+                android:id="@+id/soyAdText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:text=" " />
+
+            <EditText
+                android:id="@+id/epostaText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:text=" " />
+
+            <EditText
+                android:id="@+id/telText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:text=" " />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/kaydetBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="DEĞİŞİKLİLERİ KAYDET" />
+    <TextView
+        android:id="@+id/uyariView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="* alanlar zorunludur"
+        android:textColor="@color/colorPrimaryDark"/>
+
+</LinearLayout>

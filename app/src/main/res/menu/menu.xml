@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/kayit"
+        android:title="KAYIT"/>
+    <item
+        android:id="@+id/tarih"
+        android:title="YGS-LYS TARİH EKLE"/>
+    <item
+        android:id="@+id/dersAyar"
+        android:title="DERS AYARLARI"/>
+    <item
+        android:id="@+id/rapor"
+        android:title="RAPORLAMA"/>
+    <item
+        android:id="@+id/veriYedekle"
+        android:title="VERİ YEDEKLEME"/>
+    <item
+        android:id="@+id/hata"
+        android:title="HATA BİLDİRİMİ"/>
+
+</menu>
