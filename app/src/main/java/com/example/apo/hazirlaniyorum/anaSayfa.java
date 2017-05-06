@@ -36,8 +36,9 @@ public class anaSayfa extends AppCompatActivity {
     private ArrayList<dersEkle> dersListYgs;
     private anaSayfaExpadapter expand_adapterYGS;
     private HashMap<dersEkle, ArrayList<konuEkle>> konularListYGS;
+    final ArrayList<konuEkle> konularMatematikYGS = new ArrayList<konuEkle>();
+    final ArrayList<konuEkle> konularGeometriYGS = new ArrayList<konuEkle>();
     final ArrayList<konuEkle> konularFizikYGS = new ArrayList<konuEkle>();
-    final ArrayList<konuEkle> konularKimyaYGS = new ArrayList<konuEkle>();
     private ExpandableListView expandlist_viewYGS;
     /////////////////////////////////////////LYS bölümü
 
@@ -45,7 +46,8 @@ public class anaSayfa extends AppCompatActivity {
     private anaSayfaExpadapter expand_adapterLYS;
     private HashMap<dersEkle, ArrayList<konuEkle>> konularListLYS;
     final public ArrayList<konuEkle> konularFizikLYS = new ArrayList<konuEkle>();
-    final public ArrayList<konuEkle> konularKimyaLYS = new ArrayList<konuEkle>();
+    final public ArrayList<konuEkle> konularGeometriLYS = new ArrayList<konuEkle>();
+    final public ArrayList<konuEkle> konularMatematikLYS = new ArrayList<konuEkle>();
     private ExpandableListView expandlist_viewLYS;
 
     ///////////////////////// menu bölümü
@@ -83,6 +85,10 @@ public class anaSayfa extends AppCompatActivity {
                     break;
                 case R.id.dersAyar:
                     i = new Intent(".DERSAYARLARI");
+                    startActivity(i);
+                    break;
+                case R.id.test:
+                    i = new Intent(".TEST");
                     startActivity(i);
                     break;
                 default:
@@ -184,16 +190,23 @@ public class anaSayfa extends AppCompatActivity {
 
             konularListYGS = new HashMap<>();
 
-            dersListYgs.add(new dersEkle("FİZİK-I", 1));
-            dersListYgs.add(new dersEkle("KİMYA-I", 2));
+            dersListYgs.add(new dersEkle("MATEMATİK", 1));
+            dersListYgs.add(new dersEkle("GEOMETRİ", 3));
+            dersListYgs.add(new dersEkle("FİZİK", 5));
 
-            konularFizikYGS.add(new konuEkle("kaldıracYgs", 1));
-            konularFizikYGS.add(new konuEkle("vektorYgs", 2));
-            konularKimyaYGS.add(new konuEkle("gazlarYgs", 3));
-            konularKimyaYGS.add(new konuEkle("molekulYgs", 4));
+            konularMatematikYGS.add(new konuEkle("Sayılar", 1));
+            konularMatematikYGS.add(new konuEkle("Sayı Basamakları", 2));
+            konularMatematikYGS.add(new konuEkle("Bölme ve Bölünebilme", 3));
+            konularGeometriYGS.add(new konuEkle("Doğruda ve Üçgende Açılar", 7));
+            konularGeometriYGS.add(new konuEkle("Dik ve Özel Üçgenler", 8));
+            konularGeometriYGS.add(new konuEkle("Dik Üçgende Trigonemetrik Bağıntılar", 9));
+            konularFizikYGS.add(new konuEkle("Fizik Bilimine Giriş", 13));
+            konularFizikYGS.add(new konuEkle("Vektör-Kuvvet ve Kuvvet Dengesi", 14));
+            konularFizikYGS.add(new konuEkle("Basit Makineler", 15));
 
-            konularListYGS.put(dersListYgs.get(0), konularFizikYGS);
-            konularListYGS.put(dersListYgs.get(1), konularKimyaYGS);
+            konularListYGS.put(dersListYgs.get(0), konularMatematikYGS);
+            konularListYGS.put(dersListYgs.get(1), konularGeometriYGS);
+            konularListYGS.put(dersListYgs.get(2),konularFizikYGS);
 
         } catch (Exception ex) {
             int durtion = Toast.LENGTH_LONG;
@@ -211,16 +224,24 @@ public class anaSayfa extends AppCompatActivity {
 
             konularListLYS = new HashMap<>();
 
-            dersListLys.add(new dersEkle("FİZİK-II", 3));
-            dersListLys.add(new dersEkle("KİMYA-II", 4));
+            dersListLys.add(new dersEkle("MATEMATİK", 2));
+            dersListLys.add(new dersEkle("GEOMETRİ", 4));
+            dersListLys.add(new dersEkle("FiZİK", 6));
 
-            konularFizikLYS.add(new konuEkle("kaldırac", 1));
-            konularFizikLYS.add(new konuEkle("vektor", 2));
-            konularKimyaLYS.add(new konuEkle("gazlar", 3));
-            konularKimyaLYS.add(new konuEkle("molekul", 4));
 
-            konularListLYS.put(dersListLys.get(0), konularFizikLYS);
-            konularListLYS.put(dersListLys.get(1), konularKimyaLYS);
+            konularMatematikLYS.add(new konuEkle("Rasyonel Sayılar" ,4 ));
+            konularMatematikLYS.add(new konuEkle("Basit Eşitsizlikler" ,5 ));
+            konularMatematikLYS.add(new konuEkle("Mutlak Değer" ,6 ));
+            konularGeometriLYS.add(new konuEkle("Doğruda ve Üçgende Açılar" ,10 ));
+            konularGeometriLYS.add(new konuEkle("Dik ve Özel Üçgenler" ,11 ));
+            konularGeometriLYS.add(new konuEkle("Dik Üçgende Trigonemetrik Bağıntılar" ,12 ));
+            konularFizikLYS.add(new konuEkle("Fizik Bilimine Giriş", 16));
+            konularFizikLYS.add(new konuEkle("Vektör-Kuvvet ve Kuvvet Dengesi", 17));
+            konularFizikLYS.add(new konuEkle("Tork", 18));
+
+            konularListLYS.put(dersListLys.get(0), konularMatematikLYS);
+            konularListLYS.put(dersListLys.get(1), konularGeometriLYS);
+            konularListLYS.put(dersListLys.get(2), konularFizikLYS);
 
         } catch (Exception ex) {
             int durtion = Toast.LENGTH_LONG;

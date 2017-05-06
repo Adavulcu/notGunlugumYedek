@@ -59,22 +59,39 @@
             </intent-filter>
 
         </activity>
+
         <activity android:name=".rapor">
             <intent-filter>
                 <action android:name=".RAPOR" />
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
-
         </activity>
+
         <activity android:name=".dersAyarlari">
             <intent-filter>
                 <action android:name=".DERSAYARLARI" />
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
-
         </activity>
+
+        <activity android:name=".Test">
+            <intent-filter>
+                <action android:name=".TEST" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
+        <activity android:name=".TestDersler">
+            <intent-filter>
+                <action android:name=".TESTDERSLER" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
 
 
 
