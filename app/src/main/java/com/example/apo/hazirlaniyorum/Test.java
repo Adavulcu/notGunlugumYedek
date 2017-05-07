@@ -15,7 +15,7 @@ import android.widget.Toast;
 
 public class Test extends Activity implements OnClickListener{
 
-    Button dersler,konular,soruTbl;
+    Button dersler,konular,soruTbl,kayitBtn,ogrtKayitBtn;
     DataBase db=new DataBase(Test.this);
     Intent i;
     @Override
@@ -25,6 +25,10 @@ public class Test extends Activity implements OnClickListener{
         dersler=(Button)findViewById(R.id.derslerBtn);
         konular=(Button)findViewById(R.id.konularBtn);
         soruTbl=(Button)findViewById(R.id.soruTblBtn);
+        kayitBtn=(Button)findViewById(R.id.ogrkayitBtn);
+        ogrtKayitBtn=(Button)findViewById(R.id.ogretmenkayitBtn);
+        ogrtKayitBtn.setOnClickListener(this);
+        kayitBtn.setOnClickListener(this);
         soruTbl.setOnClickListener(this);
         dersler.setOnClickListener(this);
         konular.setOnClickListener(this);
@@ -56,6 +60,20 @@ public class Test extends Activity implements OnClickListener{
                 startActivity(i);
                 db.Close();
                 break;
+            case R.id.ogrkayitBtn:
+                db.Open();
+                i= new Intent(".TESTKAYIT");
+                startActivity(i);
+                db.Close();
+                break;
+            case R.id.ogretmenkayitBtn:
+                db.Open();
+                i= new Intent(".TESTOGRTKAYIT");
+                startActivity(i);
+                db.Close();
+                break;
+
+
 
         }
 

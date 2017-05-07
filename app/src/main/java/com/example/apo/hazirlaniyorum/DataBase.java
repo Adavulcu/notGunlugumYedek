@@ -17,6 +17,7 @@ public class DataBase  {
     private static final String konularTbl="konularTbl";
     private static final String sorularTbl="sorularTbl";
     private static final String kayitTbl="kayitTbl";
+    private static final String OgrtkayitTbl="OgrtkayitTbl";
     private static final int dataBaseVersion=1;
 
     private final Context MyContext;
@@ -55,6 +56,23 @@ public class DataBase  {
     public static  final String soruTblKeyHtest="Htest";
     public static  final String soruTblKeyAtest="Atest";
     public static  final String soruTblKeyYtest="Ytest";
+
+    //kayit tablosunun kolonları
+    public static final String kayitTblKeyID="ID";
+    public static final String kayitTblKeyOgrNo="OgrNo";
+    public static final String kayitTblKeyAD="Ad";
+    public static final String kayitTblKeySoyAd="SoyAd";
+    public static final String kayitTblKeyEPosta="ePosta";
+    public static final String kayitTblKeyTel="Telefon";
+    public static final String kayitTblKeyZDerece="ZorlukDercesi";
+    public static final String kayitTblKeyHuni="HedefUni";
+    public static final String kayitTblKeyHbolum="HedefBolum";
+
+    //ögretmen kayit tablosunu kolonları
+    public static final String ogrtKayitKeyID="ID";
+    public static final String ogrtKayitKeyDersID="dersID";
+    public static final String ogrtKayitKeyAdSoyad="ADSoyad";
+    public static final String ogrtKayitKeyEposta="ePosta";
 
 
 
@@ -116,6 +134,31 @@ public class DataBase  {
         return sorukayitlar;
     }
 
+    public String kayit() {
+        String [] kayitColoum=new String[]{kayitTblKeyID,kayitTblKeyOgrNo,kayitTblKeyAD,kayitTblKeySoyAd,kayitTblKeyEPosta,
+        kayitTblKeyTel,kayitTblKeyZDerece,kayitTblKeyHuni,kayitTblKeyHbolum};
+        Cursor c=MyDateBase.query(kayitTbl,kayitColoum,null,null,null,null,null);
+        String kayitlar="";
+        for ( c.moveToFirst();!c.isAfterLast();c.moveToNext())
+        {
+           kayitlar=kayitlar+c.getString(0)+"  "+c.getString(1)+"  "+c.getString(2)+"  "+c.getString(3)+"  "+
+                    c.getString(4)+"  "+c.getString(5)+"  "+c.getString(6)+"  "+c.getString(7)+"  "+c.getString(8)+"\n";
+
+        }
+        return kayitlar;
+    }
+
+    public String ogrtKayit() {
+        String[]ogretmenColoum=new String[]{ogrtKayitKeyID,ogrtKayitKeyDersID,ogrtKayitKeyAdSoyad,ogrtKayitKeyEposta};
+        Cursor c=MyDateBase.query(OgrtkayitTbl,ogretmenColoum,null,null,null,null,null);
+        String ogretmenKayit="";
+        for ( c.moveToFirst();!c.isAfterLast();c.moveToNext()  )
+        {
+            ogretmenKayit=ogretmenKayit+c.getString(0)+"  "+c.getString(1)+"  "+c.getString(2)+"  "+c.getString(3)+"\n";
+        }
+        return ogretmenKayit;
+    }
+
 
     private  class DataBaseHelper extends SQLiteOpenHelper{
 
@@ -174,7 +217,7 @@ public class DataBase  {
                 }
 
                 //sorular tablosu bölümü
-
+                cv=new ContentValues();
                 sqLiteDatabase.execSQL(" CREATE TABLE "+sorularTbl+"(" +
                         soruTblKeyID+" INTEGER PRIMARY KEY AUTOINCREMENT," +
                         soruTblKeyKonuID+" INTEGER DEFAULT 0," +
@@ -186,13 +229,47 @@ public class DataBase  {
                         soruTblKeyHtest+" INTEGER DEFAULT 0," +
                         soruTblKeyAtest+" INTEGER DEFAULT 0," +
                         soruTblKeyYtest+" INTEGER DEFAULT 0);");
-                cv=new ContentValues();
+
 
                 for (int i=0;i<konular.length;i++)
                 {
                     cv.put(soruTblKeyKonuID,(i+1));
                     sqLiteDatabase.insert(sorularTbl,null,cv);
                 }
+
+                //kayıt tablosu bölümü
+                sqLiteDatabase.execSQL("CREATE TABLE "+kayitTbl+"(" +
+                        kayitTblKeyID+" INTEGER PRIMARY KEY AUTOINCREMENT," +
+                         kayitTblKeyOgrNo+" INTEGER NOT NULL ," +
+                        kayitTblKeyAD+" TEXT NOT NULL," +
+                        kayitTblKeySoyAd+ " TEXT NOT NULL," +
+                        kayitTblKeyEPosta+ " TEXT NOT NULL," +
+                        kayitTblKeyTel+ " INTEGER ," +
+                        kayitTblKeyZDerece+ " INTEGER NOT NULL DEFAULT 1," +
+                        kayitTblKeyHuni+ " TEXT," +
+                        kayitTblKeyHbolum +" TEXT );");
+                cv=new ContentValues();
+                cv.put(kayitTblKeyOgrNo,00000);
+                cv.put(kayitTblKeyAD,"adınız");
+                cv.put(kayitTblKeySoyAd,"soy adınızı");
+                cv.put(kayitTblKeyEPosta,"eposta@gmail.com");
+                cv.put(kayitTblKeyZDerece,1);
+                sqLiteDatabase.insert(kayitTbl,null,cv);
+
+                //ögretmen kayit tablosu bölümü
+                sqLiteDatabase.execSQL("CREATE TABLE "+OgrtkayitTbl+"(" +
+                        ogrtKayitKeyID+" INTEGER PRIMARY KEY AUTOINCREMENT," +
+                        ogrtKayitKeyDersID+" INTEGER NOT NULL ," +
+                        ogrtKayitKeyAdSoyad+" TEXT NOT NULL DEFAULT 'Ad Soyad' ," +
+                       ogrtKayitKeyEposta+ " TEXT NOT NULL DEFAULT 'eposta@gmail.com');");
+
+                cv=new ContentValues();
+                for (int i=0;i<dersler.length;i++)
+                {
+                    cv.put(ogrtKayitKeyDersID,(i+1));
+                    sqLiteDatabase.insert(OgrtkayitTbl,null,cv);
+                }
+
 
 
 
@@ -212,6 +289,10 @@ public class DataBase  {
         @Override
         public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
             sqLiteDatabase.execSQL("DROP TABLE IF EXIST "+derslerTbl+"");
+            sqLiteDatabase.execSQL("DROP TABLE IF EXIST "+konularTbl+"");
+            sqLiteDatabase.execSQL("DROP TABLE IF EXIST "+sorularTbl+"");
+            sqLiteDatabase.execSQL("DROP TABLE IF EXIST "+kayitTbl+"");
+            sqLiteDatabase.execSQL("DROP TABLE IF EXIST "+OgrtkayitTbl+"");
             onCreate(sqLiteDatabase);
         }
     }

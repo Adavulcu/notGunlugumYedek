@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="30dp">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text=" soru ID"
+                android:layout_weight="1"/>
+
+            <TextView android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Konu ID"
+                android:layout_weight="1"/>
+
+            <TextView android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="G soru"
+                android:layout_weight="1"/>
+
+            <TextView android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="H soru"
+                android:layout_weight="1"/>
+
+            <TextView android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="A soru"
+                android:layout_weight="1"/>
+
+            <TextView android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Y soru"
+                android:layout_weight="1"/>
+
+
+            <TextView android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="G Test"
+                android:layout_weight="1"/>
+
+            <TextView android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="H Test"
+                android:layout_weight="1"/>
+
+            <TextView android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="A Test"
+                android:layout_weight="1"/>
+
+            <TextView android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Y Test"
+                android:layout_weight="1"/>
+
+
+
+        </TableRow>
+
+
+    </TableLayout>
+
+    <TextView
+        android:id="@+id/testDersKayitView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="gelen veriler" />
+
+</LinearLayout>

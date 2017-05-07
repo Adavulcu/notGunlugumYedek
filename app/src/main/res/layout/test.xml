@@ -22,4 +22,16 @@
         android:layout_height="wrap_content"
         android:text="SoruTBL" />
 
+    <Button
+        android:id="@+id/ogrkayitBtn"
+        android:layout_width="173dp"
+        android:layout_height="wrap_content"
+        android:text="ÖGR KAYİT" />
+
+    <Button
+        android:id="@+id/ogretmenkayitBtn"
+        android:layout_width="173dp"
+        android:layout_height="wrap_content"
+        android:text="ÖGRETMEN KAYİT" />
+
 </LinearLayout>
