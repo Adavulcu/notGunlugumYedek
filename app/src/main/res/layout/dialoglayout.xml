@@ -37,7 +37,7 @@
             android:layout_width="122dp"
             android:layout_height="56dp"
             android:ems="10"
-            android:inputType="textPersonName"
+            android:inputType="number"
             android:text="" />
 
         <EditText
@@ -45,7 +45,7 @@
             android:layout_width="123dp"
             android:layout_height="54dp"
             android:ems="10"
-            android:inputType="textPersonName"
+            android:inputType="number"
             android:text="" />
     </LinearLayout>
 </LinearLayout>

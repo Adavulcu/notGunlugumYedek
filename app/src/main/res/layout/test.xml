@@ -16,4 +16,10 @@
         android:layout_height="wrap_content"
         android:text="KONULAR" />
 
+    <Button
+        android:id="@+id/soruTblBtn"
+        android:layout_width="173dp"
+        android:layout_height="wrap_content"
+        android:text="SoruTBL" />
+
 </LinearLayout>

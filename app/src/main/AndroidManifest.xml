@@ -85,12 +85,30 @@
         </activity>
 
         <activity android:name=".TestDersler">
+        <intent-filter>
+            <action android:name=".TESTDERSLER" />
+
+            <category android:name="android.intent.category.DEFAULT" />
+        </intent-filter>
+    </activity>
+
+        <activity android:name=".TestKonular">
             <intent-filter>
-                <action android:name=".TESTDERSLER" />
+                <action android:name=".TESTKONULAR" />
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+
+        <activity android:name=".TestSorular">
+            <intent-filter>
+                <action android:name=".TESTSORULAR" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
+
 
 
 
