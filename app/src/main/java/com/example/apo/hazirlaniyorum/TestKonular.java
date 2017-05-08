@@ -16,13 +16,13 @@ public class TestKonular extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.konutest);
         TextView tv=(TextView)findViewById(R.id.testDersKayitView);
-        DataBase db=new DataBase(TestKonular.this);
+        DateBaseTest dbTest=new DateBaseTest(TestKonular.this);
         try {
 
-            db.Open();
-            String konuKayitlari=db.konuKayitlar();
+            dbTest.Open();
+            String konuKayitlari=dbTest.konuKayitlar();
 
-            db.Close();
+            dbTest.Close();
 
 
             tv.setText(konuKayitlari);
@@ -31,7 +31,7 @@ public class TestKonular extends Activity {
             int durtion = Toast.LENGTH_LONG;
             Toast toast = Toast.makeText(this, ex.getMessage() + " TestKonular", durtion);
             toast.show();
-            db.Close();
+            dbTest.Close();
         }
 
     }

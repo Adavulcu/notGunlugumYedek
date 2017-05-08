@@ -16,13 +16,13 @@ public class TestDersler extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.testdersler);
         TextView tv=(TextView)findViewById(R.id.testDersKayitView);
-        DataBase db=new DataBase(TestDersler.this);
+        DateBaseTest dbTest=new DateBaseTest(TestDersler.this);
         try {
 
-            db.Open();
-            String derskayitlari=db.dersKayitlar();
+            dbTest.Open();
+            String derskayitlari=dbTest.dersKayitlar();
 
-            db.Close();
+            dbTest.Close();
 
 
             tv.setText(derskayitlari);
@@ -31,7 +31,7 @@ public class TestDersler extends Activity {
             int durtion = Toast.LENGTH_LONG;
             Toast toast = Toast.makeText(this, ex.getMessage() + " TestDersler", durtion);
             toast.show();
-            db.Close();
+            dbTest.Close();
         }
 
     }

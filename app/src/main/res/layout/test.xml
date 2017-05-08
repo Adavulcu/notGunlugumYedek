@@ -8,30 +8,44 @@
         android:id="@+id/derslerBtn"
         android:layout_width="169dp"
         android:layout_height="wrap_content"
+        android:onClick="onClick"
         android:text="DERSLER" />
 
     <Button
         android:id="@+id/konularBtn"
         android:layout_width="173dp"
         android:layout_height="wrap_content"
+        android:onClick="onClick"
         android:text="KONULAR" />
 
     <Button
         android:id="@+id/soruTblBtn"
         android:layout_width="173dp"
         android:layout_height="wrap_content"
+        android:onClick="onClick"
         android:text="SoruTBL" />
 
     <Button
         android:id="@+id/ogrkayitBtn"
         android:layout_width="173dp"
         android:layout_height="wrap_content"
-        android:text="ÖGR KAYİT" />
+        android:onClick="onClick"
+        android:text="ÖGRENCİ KAYİT" />
 
     <Button
         android:id="@+id/ogretmenkayitBtn"
         android:layout_width="173dp"
         android:layout_height="wrap_content"
+        android:onClick="onClick"
         android:text="ÖGRETMEN KAYİT" />
+
+    <Button
+        android:id="@+id/ozlusozKayitBtn"
+        android:layout_width="173dp"
+        android:layout_height="wrap_content"
+        android:onClick="onClick"
+        android:text="ÖZLÜ SÖZLER" />
+
+
 
 </LinearLayout>

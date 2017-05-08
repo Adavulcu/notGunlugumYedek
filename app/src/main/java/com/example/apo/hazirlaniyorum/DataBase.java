@@ -7,72 +7,104 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.widget.Toast;
 
+import java.lang.ref.Reference;
+import java.sql.Ref;
+import java.util.ArrayList;
+
 /**
  * Created by apo on 6.05.2017.
  */
 
 public class DataBase  {
     private static final String dateBaseName="notGunlugum";
-    private static final String derslerTbl="derslerTbl";
-    private static final String konularTbl="konularTbl";
-    private static final String sorularTbl="sorularTbl";
-    private static final String kayitTbl="kayitTbl";
-    private static final String OgrtkayitTbl="OgrtkayitTbl";
+     static final String derslerTbl="derslerTbl";
+     static final String konularTbl="konularTbl";
+     static final String sorularTbl="sorularTbl";
+     static final String kayitTbl="kayitTbl";
+     static final String OgrtkayitTbl="OgrtkayitTbl";
+    private static final String hataTbl="hataTbl";
+     static final String ozluSozTbl="ozluSozTbl";
+    private static final String raporTbl="raporTbl";
+    private static final String uniqueTbl="uniqueTbl";
     private static final int dataBaseVersion=1;
 
-    private final Context MyContext;
-    private  DataBaseHelper dataBaseHelper;
-    private SQLiteDatabase MyDateBase;
+     final Context MyContext;
+     DataBaseHelper dataBaseHelper;
+     SQLiteDatabase MyDateBase;
     //dersler tablosunun kolonları
 
-    public static final String DersTblKeyID="derslerID";
-    public static final String DersTblKeyDersAd="dersAd";
-    public static final String DersTblKeyToplamSoru="toplamSoru";
-    public static final String DersTblKeyToplamKonu="toplamKonu";
-    public static final String DersTblKeyToplamTest="toplamTest";
+      static final String DersTblKeyID="derslerID";
+     static final String DersTblKeyDersAd="dersAd";
+     static final String DersTblKeyToplamSoru="toplamSoru";
+     static final String DersTblKeyToplamKonu="toplamKonu";
+     static final String DersTblKeyToplamTest="toplamTest";
 
 
     //konular tablosunun kolonları
 
 
-    public static  final String konuTblKeyID="konuID";
-    public static  final String konuTblKeydersID="dersID";
-    public static  final String konuTblKeyKonuAd="konuAd";
-    public static  final String konuTblKeyBtarih="btarih";
-    public static  final String konuTblKeyGreset="Greset";
-    public static  final String konuTblKeyHreset="Hreset";
-    public static  final String konuTblKeyAreset="Areset";
-    public static  final String konuTblKeyYreset="Yreset";
-    public static  final String konuTblKeyKonuTik="konuTik";
+    static  final String konuTblKeyID="konuID";
+     static  final String konuTblKeydersID="dersID";
+     static  final String konuTblKeyKonuAd="konuAd";
+     static  final String konuTblKeyBtarih="btarih";
+     static  final String konuTblKeyGreset="Greset";
+     static  final String konuTblKeyHreset="Hreset";
+     static  final String konuTblKeyAreset="Areset";
+     static  final String konuTblKeyYreset="Yreset";
+     static final String konuTblKeyKonuTik="konuTik";
 
     //sorluar tablosunun kolonları
-    public static  final String soruTblKeyID="ID";
-    public static  final String soruTblKeyKonuID="konuID";
-    public static  final String soruTblKeyGsoru="Gsoru";
-    public static  final String soruTblKeyHsoru="Hsoru";
-    public static  final String soruTblKeyAsoru="Asoru";
-    public static  final String soruTblKeyYsoru="Ysoru";
-    public static  final String soruTblKeyGtest="Gtest";
-    public static  final String soruTblKeyHtest="Htest";
-    public static  final String soruTblKeyAtest="Atest";
-    public static  final String soruTblKeyYtest="Ytest";
+     static  final String soruTblKeyID="ID";
+     static  final String soruTblKeyKonuID="konuID";
+     static  final String soruTblKeyGsoru="Gsoru";
+     static  final String soruTblKeyHsoru="Hsoru";
+     static  final String soruTblKeyAsoru="Asoru";
+     static  final String soruTblKeyYsoru="Ysoru";
+     static  final String soruTblKeyGtest="Gtest";
+     static  final String soruTblKeyHtest="Htest";
+     static  final String soruTblKeyAtest="Atest";
+     static  final String soruTblKeyYtest="Ytest";
 
     //kayit tablosunun kolonları
-    public static final String kayitTblKeyID="ID";
-    public static final String kayitTblKeyOgrNo="OgrNo";
-    public static final String kayitTblKeyAD="Ad";
-    public static final String kayitTblKeySoyAd="SoyAd";
-    public static final String kayitTblKeyEPosta="ePosta";
-    public static final String kayitTblKeyTel="Telefon";
-    public static final String kayitTblKeyZDerece="ZorlukDercesi";
-    public static final String kayitTblKeyHuni="HedefUni";
-    public static final String kayitTblKeyHbolum="HedefBolum";
+     static final String kayitTblKeyID="ID";
+     static final String kayitTblKeyOgrNo="OgrNo";
+     static final String kayitTblKeyAD="Ad";
+     static final String kayitTblKeySoyAd="SoyAd";
+     static final String kayitTblKeyEPosta="ePosta";
+     static final String kayitTblKeyTel="Telefon";
+     static final String kayitTblKeyZDerece="ZorlukDercesi";
+     static final String kayitTblKeyHuni="HedefUni";
+    static final String kayitTblKeyHbolum="HedefBolum";
 
     //ögretmen kayit tablosunu kolonları
-    public static final String ogrtKayitKeyID="ID";
-    public static final String ogrtKayitKeyDersID="dersID";
-    public static final String ogrtKayitKeyAdSoyad="ADSoyad";
-    public static final String ogrtKayitKeyEposta="ePosta";
+     static final String ogrtKayitKeyID="ID";
+     static final String ogrtKayitKeyDersID="dersID";
+     static final String ogrtKayitKeyAdSoyad="ADSoyad";
+     static final String ogrtKayitKeyEposta="ePosta";
+
+    //hata tablosu kolonları
+     static final String hataTblKeyID="ID";
+     static final String hataTblKeyturu="hataTuru";
+    static final String hataTblKeyIcerik="hataIcerik";
+     static final String hataTblKeyTarih="hataTarih";
+
+    //özlü söz tablosu kolonları
+     static final String ozluSozTblKeyID="ID";
+     static final String ozluSozTblKeysoz="ozluSoz";
+     static final String ozluSozTblKeySoyleyen="soyleyen";
+
+    //rapor tablosu kolonları
+     static final String raporTblKeyID="ID";
+     static final String raporTblKeyDersID="DersID";
+
+    //unique tablosu kolonları
+     static final String uniqueTbLKeyID="ID";
+     static final String uniqueTbLKeyKonuID="KonuID";
+     static final String uniqueTbLKeySoruSayisi="SoruSayisi";
+     static final String uniqueTbLKeyTestSayisi="TestSayisi";
+     static final String uniqueTbLKeytatih="tarih";
+
+
 
 
 
@@ -92,75 +124,11 @@ public class DataBase  {
         dataBaseHelper.close();
     }
 
-    public String dersKayitlar() {
-
-        String [] dersColoum=new String[]{DersTblKeyID,DersTblKeyDersAd,DersTblKeyToplamSoru,
-                DersTblKeyToplamKonu,DersTblKeyToplamTest};
-        Cursor c=MyDateBase.query(derslerTbl,dersColoum,null,null,null,null,null);
-        String derskayitlar="";
-        for (c.moveToFirst();!c.isAfterLast();c.moveToNext())
-        {
-            derskayitlar=derskayitlar+ c.getString(0)+"   "+c.getString(1)+"    "+c.getString(2)+"    " +
-                    c.getString(3)+"    "+c.getString(4)+"\n";
-        }
-        return derskayitlar;
-    }
-
-    public String konuKayitlar() {
-        String[] konuColoum=new String[]{konuTblKeyID,konuTblKeydersID,konuTblKeyKonuAd,konuTblKeyBtarih,
-                konuTblKeyGreset,konuTblKeyHreset,konuTblKeyAreset,konuTblKeyYreset,konuTblKeyKonuTik};
-        Cursor c=MyDateBase.query(konularTbl,konuColoum,null,null,null,null,null);
-        String konukayitlar="";
-        for ( c.moveToFirst();!c.isAfterLast();c.moveToNext())
-        {
-            konukayitlar=konukayitlar+c.getString(0)+"  "+c.getString(1)+"  "+c.getString(2)+"  "+c.getString(3)+"  "+
-                    c.getString(4)+"  "+c.getString(5)+"  "+c.getString(6)+"  "+c.getString(7)+"  "+c.getString(8)+" \n ";
-
-        }
-        return konukayitlar;
-    }
-
-    public String soruKayitlar() {
-        String[] soruColoum=new String[]{soruTblKeyID,soruTblKeyKonuID,soruTblKeyGsoru,soruTblKeyHsoru,soruTblKeyAsoru,
-                soruTblKeyYsoru,soruTblKeyGtest,soruTblKeyHtest,soruTblKeyAtest,soruTblKeyYtest};
-        Cursor c=MyDateBase.query(sorularTbl,soruColoum,null,null,null,null,null);
-        String sorukayitlar="";
-        for ( c.moveToFirst();!c.isAfterLast();c.moveToNext())
-        {
-            sorukayitlar=sorukayitlar+c.getString(0)+"  "+c.getString(1)+"  "+c.getString(2)+"  "+c.getString(3)+"  "+
-                    c.getString(4)+"  "+c.getString(5)+"  "+c.getString(6)+"  "+c.getString(7)+"  "+c.getString(8)+"  "+
-                    c.getString(9)+" \n ";
-        }
-        return sorukayitlar;
-    }
-
-    public String kayit() {
-        String [] kayitColoum=new String[]{kayitTblKeyID,kayitTblKeyOgrNo,kayitTblKeyAD,kayitTblKeySoyAd,kayitTblKeyEPosta,
-        kayitTblKeyTel,kayitTblKeyZDerece,kayitTblKeyHuni,kayitTblKeyHbolum};
-        Cursor c=MyDateBase.query(kayitTbl,kayitColoum,null,null,null,null,null);
-        String kayitlar="";
-        for ( c.moveToFirst();!c.isAfterLast();c.moveToNext())
-        {
-           kayitlar=kayitlar+c.getString(0)+"  "+c.getString(1)+"  "+c.getString(2)+"  "+c.getString(3)+"  "+
-                    c.getString(4)+"  "+c.getString(5)+"  "+c.getString(6)+"  "+c.getString(7)+"  "+c.getString(8)+"\n";
-
-        }
-        return kayitlar;
-    }
-
-    public String ogrtKayit() {
-        String[]ogretmenColoum=new String[]{ogrtKayitKeyID,ogrtKayitKeyDersID,ogrtKayitKeyAdSoyad,ogrtKayitKeyEposta};
-        Cursor c=MyDateBase.query(OgrtkayitTbl,ogretmenColoum,null,null,null,null,null);
-        String ogretmenKayit="";
-        for ( c.moveToFirst();!c.isAfterLast();c.moveToNext()  )
-        {
-            ogretmenKayit=ogretmenKayit+c.getString(0)+"  "+c.getString(1)+"  "+c.getString(2)+"  "+c.getString(3)+"\n";
-        }
-        return ogretmenKayit;
-    }
 
 
-    private  class DataBaseHelper extends SQLiteOpenHelper{
+
+
+    protected class DataBaseHelper extends SQLiteOpenHelper{
 
 
 
@@ -270,6 +238,43 @@ public class DataBase  {
                     sqLiteDatabase.insert(OgrtkayitTbl,null,cv);
                 }
 
+                //hata tabloso bölümü
+                sqLiteDatabase.execSQL("CREATE TABLE "+hataTbl+"(" +
+                        hataTblKeyID+" INTEGER PRIMARY KEY AUTOINCREMENT," +
+                        hataTblKeyturu+" TEXT ," +
+                        hataTblKeyIcerik+" TEXT ," +
+                        hataTblKeyTarih+" TEXT NOT NULL );");
+
+                //rapor tablosu bölümü
+                sqLiteDatabase.execSQL("CREATE TABLE "+raporTbl+"(" +
+                        raporTblKeyID+" INTEGER PRIMARY KEY AUTOINCREMENT," +
+                        raporTblKeyDersID+ " INTEGER NOT NULL );");
+
+                //unique tablosy bölümü
+                sqLiteDatabase.execSQL("CREATE TABLE "+uniqueTbl+"(" +
+                        uniqueTbLKeyID+" INTEGER PRIMARY KEY AUTOINCREMENT," +
+                        uniqueTbLKeyKonuID+ " INTEGER NOT NULL ," +
+                        uniqueTbLKeySoruSayisi+ " INTEGER ," +
+                        uniqueTbLKeyTestSayisi +" INTEGER ," +
+                        uniqueTbLKeytatih +" TEXT NOT NULL );");
+
+                //Özlü söz tablosu bölümü
+                sqLiteDatabase.execSQL("CREATE TABLE "+ozluSozTbl+"(" +
+                        ozluSozTblKeyID+" INTEGER PRIMARY KEY AUTOINCREMENT ," +
+                        ozluSozTblKeysoz+ " TEXT NOT NULL ," +
+                        ozluSozTblKeySoyleyen+ " TEXT NOT NULL );");
+             ArrayList<String> ozluSoz=new ArrayList<String>();
+                ArrayList<String> soyleyen=new ArrayList<String>();
+                ozluSozEkle ekle=new ozluSozEkle();
+               ozluSoz=ekle.EkleSoz();
+                soyleyen=ekle.EkleSoyleyen();
+                cv=new ContentValues();
+                for (int i=0;i<ozluSoz.size();i++)
+                {
+                    cv.put(ozluSozTblKeysoz,ozluSoz.get(i));
+                    cv.put(ozluSozTblKeySoyleyen,soyleyen.get(i));
+                    sqLiteDatabase.insert(ozluSozTbl,null,cv);
+                }
 
 
 
@@ -278,7 +283,7 @@ public class DataBase  {
             {
                 int durtion = Toast.LENGTH_LONG;
 
-                Toast toast = Toast.makeText(MyContext, ex.getMessage() + " anasayfa", durtion);
+                Toast toast = Toast.makeText(MyContext, ex.getMessage() + " dataBase", durtion);
                 toast.show();
             }
 
@@ -293,6 +298,10 @@ public class DataBase  {
             sqLiteDatabase.execSQL("DROP TABLE IF EXIST "+sorularTbl+"");
             sqLiteDatabase.execSQL("DROP TABLE IF EXIST "+kayitTbl+"");
             sqLiteDatabase.execSQL("DROP TABLE IF EXIST "+OgrtkayitTbl+"");
+            sqLiteDatabase.execSQL("DROP TABLE IF EXIST "+hataTbl+"");
+            sqLiteDatabase.execSQL("DROP TABLE IF EXIST "+raporTbl+"");
+            sqLiteDatabase.execSQL("DROP TABLE IF EXIST "+uniqueTbl+"");
+            sqLiteDatabase.execSQL("DROP TABLE IF EXIST "+ozluSozTbl+"");
             onCreate(sqLiteDatabase);
         }
     }

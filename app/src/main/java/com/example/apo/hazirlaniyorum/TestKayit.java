@@ -16,13 +16,13 @@ public class TestKayit extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.testkayit);
         TextView tv=(TextView)findViewById(R.id.testDersKayitView);
-        DataBase db=new DataBase(TestKayit.this);
+        DateBaseTest dbTest=new DateBaseTest(TestKayit.this);
         try {
 
-            db.Open();
-            String ogrenciKayit=db.kayit();
+            dbTest.Open();
+            String ogrenciKayit=dbTest.kayit();
 
-            db.Close();
+            dbTest.Close();
 
 
             tv.setText(ogrenciKayit);
@@ -31,7 +31,7 @@ public class TestKayit extends Activity {
             int durtion = Toast.LENGTH_LONG;
             Toast toast = Toast.makeText(this, ex.getMessage() + " TestDersler", durtion);
             toast.show();
-            db.Close();
+            dbTest.Close();
         }
 
     }

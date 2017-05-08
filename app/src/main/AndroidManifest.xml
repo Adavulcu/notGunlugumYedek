@@ -115,6 +115,7 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+
         <activity android:name=".TestOgrtKayit">
             <intent-filter>
                 <action android:name=".TESTOGRTKAYIT" />
@@ -123,6 +124,13 @@
             </intent-filter>
         </activity>
 
+        <activity android:name=".TestOzluSoz">
+            <intent-filter>
+                <action android:name=".TESTOZLUSOZ" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
 
 
 
