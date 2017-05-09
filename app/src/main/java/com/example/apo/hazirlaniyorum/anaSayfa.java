@@ -31,6 +31,7 @@ public class anaSayfa extends AppCompatActivity {
 
     TabHost tabHost;
     Context contex = this;
+    DataBase db=new DataBase(anaSayfa.this);
 //////////////////////////////////////////////////YGS BÖLÜMÜ
 
     private ArrayList<dersEkle> dersListYgs;
@@ -107,12 +108,17 @@ public class anaSayfa extends AppCompatActivity {
 
     }
 
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.anasayfa);
         try {
 
+            TextView ygsView=(TextView)findViewById(R.id.anasayaYGSkalanView);
+            TextView lysView=(TextView)findViewById(R.id.anasayfaLYSkalanView);
+
+            toplamBitemKonu();
 
             // tabHost = getTabHost();
             tabHost = (TabHost) findViewById(R.id.anatab);
@@ -251,15 +257,7 @@ public class anaSayfa extends AppCompatActivity {
     }
 
     public void onBackPressed() {
-        try {
-            //  backButtonHandler();
-            //return;
-            //super.onBackPressed();
-        } catch (Exception ex) {
-            int durtion = Toast.LENGTH_LONG;
-            Toast toast = Toast.makeText(this, ex.getMessage() + " onBack", durtion);
-            toast.show();
-        }
+
 
     }
 
@@ -296,24 +294,22 @@ public class anaSayfa extends AppCompatActivity {
 
     }
 
-    public void soruTestGir(int id, final String konuadi) {
+    public void soruTestGir(final int id, final String konuadi) {
         try {
 
               LayoutInflater inflater = getLayoutInflater();
-            View alertLayout = inflater.inflate(R.layout.dialoglayout, null);
-
-            TextView soruSayisi=(TextView)findViewById(R.id.soruSayisiView);
-            TextView testSayisi=(TextView)findViewById(R.id.testSayisiView);
-            final EditText soruSayisiGir=(EditText)findViewById(R.id.soruSayisitext);
-            final EditText testSayisiGir=(EditText)findViewById(R.id.testSayisitext);
-
-
+            final View alertLayout = inflater.inflate(R.layout.dialoglayout, null);
             AlertDialog.Builder alert = new AlertDialog.Builder(this);
+
+
+
+
             alert.setTitle(konuadi+" ID: "+id);
             // this is set the view from XML inside AlertDialog
             alert.setView(alertLayout);
             // disallow cancel of AlertDialog on click of back button and outside touch
             alert.setCancelable(false);
+
             alert.setNegativeButton("İPTAL", new DialogInterface.OnClickListener() {
 
                 @Override
@@ -326,6 +322,22 @@ public class anaSayfa extends AppCompatActivity {
 
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
+                    TextView soruSayisi=(TextView) alertLayout.findViewById(R.id.soruSayisiView);
+                    TextView testSayisi=(TextView) alertLayout.findViewById(R.id.testSayisiView);
+                    final EditText soruSayisiGir=(EditText)alertLayout.findViewById(R.id.soruSayisitext);
+                    final EditText testSayisiGir=(EditText)alertLayout.findViewById(R.id.testSayisitext);
+                  final  String soru=soruSayisiGir.getText().toString();
+                   final String test=testSayisiGir.getText().toString();
+
+                 int sorusayisi=Integer.parseInt(soru);
+                   int testsayisi=Integer.parseInt(test);
+                    db.Open();
+                  db.soruVeTestGir(id,sorusayisi,testsayisi);
+                   db.Close();
+                    expandlist_viewYGS.setAdapter(expand_adapterYGS);
+                    expandlist_viewLYS.setAdapter(expand_adapterLYS);
+                    // dersAyarlari ders=new dersAyarlari();
+                  //  ders.onBackPressed();
 
                 }
             });
@@ -342,12 +354,64 @@ public class anaSayfa extends AppCompatActivity {
 
     }
 
+    private void toplamBitemKonu()
+    {
+        try {
+            TextView konuView=(TextView)findViewById(R.id.bitirilenToplamKonuView);
+            db.Open();
+            String bitenKonu=db.bitenKonu();
+            konuView.setText(bitenKonu);
+            db.Close();
+
+        }catch (Exception ex)
+        {
+            int durtion = Toast.LENGTH_LONG;
+            Toast toast = Toast.makeText(this, ex.getMessage() + " toplam", durtion);
+            toast.show();
+        }
+    }
+
 
     public void clickMe(View view) {
         Button ID = (Button) view;
         Toast.makeText(this, "Button " + ID.getText().toString(), Toast.LENGTH_LONG).show();
     }
+    private String bitenKonular(int id)
+    {
+        try {
+            db.Open();
+            String bitenkonu=db.bitenKonu(id);
+            db.Close();
+            return bitenkonu;
+        }catch (Exception ex)
+        {
+            int durtion = Toast.LENGTH_LONG;
+            Toast toast = Toast.makeText(this, ex.getMessage() + " biten konu", durtion);
+            toast.show();
+        }
+       return "-1";
+    }
+    private String toplamSorular(int id)
+    {
+        try {
+            db.Open();
+            String toplamsoru=db.bitenSoru(id);
+            db.Close();
+            return  toplamsoru;
+        }catch (Exception ex)
+        {
+            int durtion = Toast.LENGTH_LONG;
+            Toast toast = Toast.makeText(this, ex.getMessage() + " toplam soru", durtion);
+            toast.show();
+        }
+        return "-1";
 
+    }
+    private void chechKontrol()
+    {
+        expandlist_viewYGS.setAdapter(expand_adapterYGS);
+        expandlist_viewLYS.setAdapter(expand_adapterLYS);
+    }
     private class anaSayfaExpadapter extends BaseExpandableListAdapter {
         private ArrayList<dersEkle>ListParent;
         private HashMap<dersEkle, ArrayList<konuEkle>> list_child;
@@ -423,10 +487,12 @@ public class anaSayfa extends AppCompatActivity {
                 inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                 view = inflater.inflate(R.layout.dersler,null);
             }
+            String bitenkonu=bitenKonular(ders.getID());
+            String bitensoru=toplamSorular(ders.getID());
             bitenKonu=(TextView)view.findViewById(R.id.bitenKonu);
-            bitenKonu.setText("15");
+            bitenKonu.setText(bitenkonu);
             bitenSoru=(TextView)view.findViewById(R.id.bitenSoru);
-            bitenSoru.setText("150");
+            bitenSoru.setText(bitensoru);
             toplamKonu=(TextView)view.findViewById(R.id.toplamkonu);
             toplamSoru=(TextView)view.findViewById(R.id.toplamSoru);
             dersAd = (TextView)view.findViewById(R.id.dersAd);
@@ -434,6 +500,7 @@ public class anaSayfa extends AppCompatActivity {
 
             return view;
         }
+
 
         @Override
         public View getChildView(int groupPosition, int childPosition,
@@ -456,6 +523,10 @@ public class anaSayfa extends AppCompatActivity {
                 txt_child.setFocusable(false);
                 ID=(Button) view.findViewById(R.id.ID);
                 ID.setText("soru gir");
+
+
+
+
 
 
             ID.setOnClickListener(new View.OnClickListener() {

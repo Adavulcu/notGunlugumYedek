@@ -124,6 +124,242 @@ public class DataBase  {
         dataBaseHelper.close();
     }
 
+    public String ozluSozBul(int ıd) {
+        String [] ozlu=new String[]{ozluSozTblKeyID,ozluSozTblKeysoz,ozluSozTblKeySoyleyen};
+        Cursor c=MyDateBase.query(ozluSozTbl,ozlu,ozluSozTblKeyID+"="+ıd,null,null,null,null);
+        String ozlusoz="";
+        for (c.moveToFirst();!c.isAfterLast();c.moveToNext())
+        {
+            ozlusoz=ozlusoz+ c.getString(1);
+        }
+
+        return ozlusoz;
+
+    }
+
+    public String soyleyenBUl(int ıd) {
+        String [] ozlu=new String[]{ozluSozTblKeyID,ozluSozTblKeysoz,ozluSozTblKeySoyleyen};
+        Cursor c=MyDateBase.query(ozluSozTbl,ozlu,ozluSozTblKeyID+"="+ıd,null,null,null,null);
+        String soyleyen="";
+        for (c.moveToFirst();!c.isAfterLast();c.moveToNext())
+        {
+           soyleyen=soyleyen+ c.getString(2);
+        }
+
+        return soyleyen;
+    }
+
+    public String bitenKonu(int ıd) {
+        try {
+            String[] konuColoum=new String[]{konuTblKeyID,konuTblKeydersID,konuTblKeyKonuAd,konuTblKeyBtarih,
+                    konuTblKeyGreset,konuTblKeyHreset,konuTblKeyAreset,konuTblKeyYreset,konuTblKeyKonuTik};
+            int counter=0;
+
+           Cursor c=MyDateBase.query(konularTbl,konuColoum,konuTblKeydersID+"="+ıd+" AND "+konuTblKeyKonuTik+"=1",null,null,null,null);
+
+            for (c.moveToFirst();!c.isAfterLast();c.moveToNext())
+            {
+                counter++;
+            }
+
+            return String.valueOf(counter);
+        }catch (Exception ex)
+        {
+            return "-1";
+        }
+
+
+    }
+
+    public String bitenKonu()
+    {
+        try {
+            String[] konuColoum=new String[]{konuTblKeyID,konuTblKeydersID,konuTblKeyKonuAd,konuTblKeyBtarih,
+                    konuTblKeyGreset,konuTblKeyHreset,konuTblKeyAreset,konuTblKeyYreset,konuTblKeyKonuTik};
+            int counter=0;
+
+            Cursor c=MyDateBase.query(konularTbl,konuColoum,konuTblKeyKonuTik+"=1",null,null,null,null);
+
+            for (c.moveToFirst();!c.isAfterLast();c.moveToNext())
+            {
+                counter++;
+            }
+
+            return String.valueOf(counter);
+        }catch (Exception ex)
+        {
+            return "-1";
+        }
+
+    }
+
+    public String bitenSoru(int ıd) {
+        try {
+
+            String[] soruColoum=new String[]{soruTblKeyID,soruTblKeyKonuID,soruTblKeyGsoru,soruTblKeyHsoru,soruTblKeyAsoru,
+                    soruTblKeyYsoru,soruTblKeyGtest,soruTblKeyHtest,soruTblKeyAtest,soruTblKeyYtest};
+            int soruSayisi=0;
+           // String query="SELECT "+soruColoum+" FROM "+sorularTbl+" WHERE "+soruTblKeyKonuID+" IN (SELECT "+konuTblKeyID+" FROM "+konularTbl+" WHERE "+konuTblKeydersID;
+            Cursor c=MyDateBase.query(sorularTbl,soruColoum,soruTblKeyKonuID+"  IN (SELECT "+konuTblKeyID+" FROM "+konularTbl+" WHERE "+konuTblKeydersID+"="+ıd+")",null,null,null,null);
+            for (c.moveToFirst();!c.isAfterLast();c.moveToNext())
+            {
+                soruSayisi=soruSayisi+c.getInt(2)+c.getInt(3)+c.getInt(4)+c.getInt(5);
+            }
+
+            return String.valueOf(soruSayisi);
+        }catch (Exception ex)
+        {
+           return "-1";
+        }
+
+
+    }
+
+    public void soruVeTestGir(int id, int sorusayisi, int testsayisi) {
+        try {
+
+         /*   String querySoruTbl="UPDATE "+sorularTbl+" SET "+soruTblKeyGsoru+"=("+soruTblKeyGsoru+"+"+sorusayisi+") , "+soruTblKeyGtest+"=("+soruTblKeyGtest+"+"+testsayisi+") WHERE" +soruTblKeyKonuID+"="+id+"  ";
+            MyDateBase.execSQL(querySoruTbl);
+            String queryDersTbl="UPDATE "+derslerTbl+" SET "+DersTblKeyToplamSoru+"=("+DersTblKeyToplamSoru+"+"+sorusayisi+") , "+DersTblKeyToplamTest+"=("+DersTblKeyToplamTest+"+"+testsayisi+") WHERE "+DersTblKeyID+" IN (SELECT "+konuTblKeydersID+" FROM "+derslerTbl+" WHERE "+konuTblKeyID+"="+id+" )";
+            MyDateBase.execSQL(queryDersTbl);*/
+
+            String[] soruColoum=new String[]{soruTblKeyID,soruTblKeyKonuID,soruTblKeyGsoru,soruTblKeyHsoru,soruTblKeyAsoru,
+                    soruTblKeyYsoru,soruTblKeyGtest,soruTblKeyHtest,soruTblKeyAtest,soruTblKeyYtest};
+            Cursor c=MyDateBase.query(sorularTbl,soruColoum,soruTblKeyKonuID+"="+id,null,null,null,null);
+            int soru=0;
+            int test=0;
+            if(c!=null)
+            {
+                c.moveToFirst();
+                soru=c.getInt(2);
+                test=c.getInt(6);
+
+            }
+            ContentValues cv=new ContentValues();
+            cv.put(soruTblKeyGtest,(testsayisi+test));
+            cv.put(soruTblKeyGsoru, (sorusayisi+soru));
+            MyDateBase.update(sorularTbl,cv,soruTblKeyKonuID+"="+id,null);
+
+            //dersler
+            String [] dersColoum=new String[]{DersTblKeyID,DersTblKeyDersAd,DersTblKeyToplamSoru,
+                    DersTblKeyToplamKonu,DersTblKeyToplamTest};
+            Cursor c1=MyDateBase.query(derslerTbl,dersColoum,DersTblKeyID+" IN (SELECT "+konuTblKeydersID+" FROM "+konularTbl+" WHERE "+konuTblKeyID+"="+id+")",null,null,null,null);
+           int dersSoru=0;
+            int dersTest=0;
+           if(c1!=null)
+           {
+               c1.moveToFirst();
+                dersSoru=c1.getInt(2);
+                dersTest=c1.getInt(4);
+          }
+           cv=new ContentValues();
+           cv.put(DersTblKeyToplamSoru,(sorusayisi+dersSoru));
+            cv.put(DersTblKeyToplamTest,(testsayisi+dersTest));
+            MyDateBase.update(derslerTbl,cv,DersTblKeyID+" IN (SELECT "+konuTblKeydersID+" FROM "+konularTbl+" WHERE "+konuTblKeyID+"="+id+")",null);
+
+        }catch (Exception ex)
+        {
+            int durtion = Toast.LENGTH_LONG;
+
+            Toast toast = Toast.makeText(MyContext, ex.getMessage() + " dataBase", durtion);
+            toast.show();
+        }
+
+    }
+
+    public String[] kayitGetir() {
+        String [] kayitColoum=new String[]{kayitTblKeyID,kayitTblKeyOgrNo,kayitTblKeyAD,kayitTblKeySoyAd,kayitTblKeyEPosta,
+                kayitTblKeyTel,kayitTblKeyZDerece,kayitTblKeyHuni,kayitTblKeyHbolum};
+        Cursor c=MyDateBase.query(kayitTbl,kayitColoum,null,null,null,null,null);
+        String[] kayitlar=new String[7];
+        if(c!=null)
+        {
+            c.moveToFirst();
+            kayitlar[0]=c.getString(2);
+            kayitlar[1]=c.getString(3);
+            kayitlar[2]=c.getString(4);
+            kayitlar[3]=c.getString(1);
+            kayitlar[4]=c.getString(5);
+            kayitlar[5]=c.getString(7);
+            kayitlar[6]=c.getString(8);
+            return kayitlar;
+
+        }
+        return null;
+    }
+
+    public void kayitGucelle(String gad, String gsoyad, String geposta, String gokulno, String gtel, String guni, String gbolum) {
+        try {
+
+            ContentValues cv=new ContentValues();
+            cv.put(kayitTblKeyAD,gad);
+            cv.put(kayitTblKeySoyAd,gsoyad);
+            cv.put(kayitTblKeyEPosta,geposta);
+            cv.put(kayitTblKeyOgrNo,gokulno);
+            cv.put(kayitTblKeyTel,gtel);
+            cv.put(kayitTblKeyHuni,guni);
+            cv.put(kayitTblKeyHbolum,gbolum);
+            MyDateBase.update(kayitTbl,cv,kayitTblKeyID+"="+1,null);
+        }catch (Exception ex)
+        {
+            int durtion = Toast.LENGTH_LONG;
+
+            Toast toast = Toast.makeText(MyContext, ex.getMessage() + " kayitguncelle", durtion);
+            toast.show();
+        }
+
+    }
+
+    public void ogrtKaydet(int ıd, String adSoyad, String ePosta) {
+        try {
+            int a=ıd+1;
+            ContentValues cv=new ContentValues();
+            cv.put(ogrtKayitKeyAdSoyad,adSoyad);
+            cv.put(ogrtKayitKeyEposta,ePosta);
+            MyDateBase.update(OgrtkayitTbl,cv,ogrtKayitKeyDersID+"="+ıd,null);
+            MyDateBase.update(OgrtkayitTbl,cv,ogrtKayitKeyDersID+"="+a,null);
+            int durtion = Toast.LENGTH_SHORT;
+
+            Toast toast = Toast.makeText(MyContext, " degişiklikler kaydedilmiştir", durtion);
+            toast.show();
+
+        }catch (Exception ex)
+        {
+            int durtion = Toast.LENGTH_LONG;
+
+            Toast toast = Toast.makeText(MyContext, ex.getMessage() + " ogrt kayıt", durtion);
+            toast.show();
+        }
+
+    }
+
+    public String[] ogrtBilgiGetir(int ıd)
+    {
+        try
+        {
+            String[] ogretmenColoum = new String[]{ogrtKayitKeyID, ogrtKayitKeyDersID, ogrtKayitKeyAdSoyad, ogrtKayitKeyEposta};
+            Cursor c = MyDateBase.query(OgrtkayitTbl, ogretmenColoum, ogrtKayitKeyDersID + "=" + ıd, null, null, null, null);
+            String[] ogrtBilgi = new String[2];
+            if (c != null)
+            {
+                c.moveToFirst();
+                ogrtBilgi[0] = c.getString(2);
+                ogrtBilgi[1] = c.getString(3);
+                return ogrtBilgi;
+            }
+        } catch (Exception ex)
+        {
+            int durtion = Toast.LENGTH_LONG;
+
+            Toast toast = Toast.makeText(MyContext, ex.getMessage() + " ogrt kayıt", durtion);
+            toast.show();
+
+        }
+        return null;
+    }
+
+
+
 
 
 
@@ -146,9 +382,9 @@ public class DataBase  {
                 sqLiteDatabase.execSQL(" CREATE TABLE "+derslerTbl+"(" +
                         DersTblKeyID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
                         DersTblKeyDersAd + " TEXT NOT NULL," +
-                        DersTblKeyToplamSoru + " INTEGER DEFAULT 0," +
+                        DersTblKeyToplamSoru + " INTEGER DEFAULT 0 ," +
                         DersTblKeyToplamKonu + " INTEGER DEFAULT 0 ," +
-                        DersTblKeyToplamTest +  " INTEGER DEFAULT 0);");
+                        DersTblKeyToplamTest +  " INTEGER DEFAULT 0 );");
 
 
                 ContentValues cv=new ContentValues();
@@ -208,20 +444,24 @@ public class DataBase  {
                 //kayıt tablosu bölümü
                 sqLiteDatabase.execSQL("CREATE TABLE "+kayitTbl+"(" +
                         kayitTblKeyID+" INTEGER PRIMARY KEY AUTOINCREMENT," +
-                         kayitTblKeyOgrNo+" INTEGER NOT NULL ," +
+                         kayitTblKeyOgrNo+" TEXT NOT NULL ," +
                         kayitTblKeyAD+" TEXT NOT NULL," +
                         kayitTblKeySoyAd+ " TEXT NOT NULL," +
                         kayitTblKeyEPosta+ " TEXT NOT NULL," +
-                        kayitTblKeyTel+ " INTEGER ," +
+                        kayitTblKeyTel+ " TETX ," +
                         kayitTblKeyZDerece+ " INTEGER NOT NULL DEFAULT 1," +
                         kayitTblKeyHuni+ " TEXT," +
                         kayitTblKeyHbolum +" TEXT );");
                 cv=new ContentValues();
-                cv.put(kayitTblKeyOgrNo,00000);
+                cv.put(kayitTblKeyOgrNo,"0");
                 cv.put(kayitTblKeyAD,"adınız");
                 cv.put(kayitTblKeySoyAd,"soy adınızı");
                 cv.put(kayitTblKeyEPosta,"eposta@gmail.com");
+                cv.put(kayitTblKeyTel,0);
                 cv.put(kayitTblKeyZDerece,1);
+                cv.put(kayitTblKeyHuni,"PAU");
+                cv.put(kayitTblKeyHbolum,"BİLGİSAYAR MÜHENDİSLİĞİ");
+
                 sqLiteDatabase.insert(kayitTbl,null,cv);
 
                 //ögretmen kayit tablosu bölümü
@@ -266,7 +506,7 @@ public class DataBase  {
              ArrayList<String> ozluSoz=new ArrayList<String>();
                 ArrayList<String> soyleyen=new ArrayList<String>();
                 ozluSozEkle ekle=new ozluSozEkle();
-               ozluSoz=ekle.EkleSoz();
+                ozluSoz=ekle.EkleSoz();
                 soyleyen=ekle.EkleSoyleyen();
                 cv=new ContentValues();
                 for (int i=0;i<ozluSoz.size();i++)

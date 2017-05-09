@@ -113,10 +113,10 @@ public class rapor extends AppCompatActivity  {
             titleYGS.add("DERS SEÇİMİ");
 
 
-            derslerYGS.add(new dersEkle("FİZİK-I",1));
-            derslerYGS.add(new dersEkle("KİMYA-I",2));
-            derslerYGS.add(new dersEkle("MATEMATİK-I",3));
-            derslerYGS.add(new dersEkle("TÜRKCE-I",4));
+            derslerYGS.add(new dersEkle("MATEMATİK",1));
+            derslerYGS.add(new dersEkle("GEOMETRİ",3));
+            derslerYGS.add(new dersEkle("FİZİK",5));
+
 
             derslerListYGS.put(titleYGS.get(0), derslerYGS);
 
@@ -136,10 +136,10 @@ public class rapor extends AppCompatActivity  {
             titleLYS.add("DERS SEÇİMİ");
 
 
-            derslerLYS.add(new dersEkle("FİZİK-II",5));
-            derslerLYS.add(new dersEkle("KİMYA-II",6));
-            derslerLYS.add(new dersEkle("MATEMATİK-II",7));
-           derslerLYS.add(new dersEkle("TÜRKÇE",8));
+            derslerLYS.add(new dersEkle("MATEMATİK",2));
+            derslerLYS.add(new dersEkle("GEOMETRİ",4));
+            derslerLYS.add(new dersEkle("FİZİK",6));
+
 
            derslerListLYS.put(titleLYS.get(0), derslerLYS);
 

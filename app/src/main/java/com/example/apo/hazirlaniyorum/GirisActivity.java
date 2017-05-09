@@ -4,18 +4,18 @@ import android.content.Intent;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.MenuInflater;
-import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
+
 import android.widget.TextView;
+import android.widget.Toast;
+
+import java.util.Random;
 
 import java.sql.Time;
 
 import static java.lang.Thread.sleep;
 
 public class GirisActivity extends AppCompatActivity {
-
+        DataBase db=new DataBase(GirisActivity.this);
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,19 +25,36 @@ public class GirisActivity extends AppCompatActivity {
         //  System.exit(0);
         }
         else {
-          final TextView icon = (TextView) findViewById(R.id.iconText);
-          final TextView ozluSoz = (TextView) findViewById(R.id.ozluSozText);
-          final TextView soyleyen = (TextView) findViewById(R.id.ozluSozSoyleyenText);
+          try {
+              Random rnd=new Random();
+              final TextView icon = (TextView) findViewById(R.id.iconText);
+              final TextView ozluSoz = (TextView) findViewById(R.id.ozluSozText);
+              final TextView soyleyen = (TextView) findViewById(R.id.ozluSozSoyleyenText);
+             int ID=rnd.nextInt(3)+1;
+              db.Open();
+               // ozluSoz.setText(Integer.toString(ID));
+              String Soz=db.ozluSozBul(ID);
+              String soyleyenKisi=db.soyleyenBUl(ID);
+              ozluSoz.setText(Soz);
+              soyleyen.setText(soyleyenKisi);
+            db.Close();
+              Handler handler = new Handler();
 
+              handler.postDelayed(new Runnable() {
+                  public void run() {
+                      Intent i = new Intent(".ANASAYFA");
+                      startActivity(i);
+                  }
+              }, 3000);
+          }catch (Exception ex)
+          {
 
-          Handler handler = new Handler();
+              int durtion = Toast.LENGTH_LONG;
 
-          handler.postDelayed(new Runnable() {
-              public void run() {
-                  Intent i = new Intent(".ANASAYFA");
-                  startActivity(i);
-              }
-          }, 3000);
+              Toast toast = Toast.makeText(GirisActivity.this, ex.getMessage() + " giris", durtion);
+              toast.show();
+          }
+
 
       }
     }

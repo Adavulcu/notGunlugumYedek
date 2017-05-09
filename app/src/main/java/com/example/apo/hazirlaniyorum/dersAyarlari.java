@@ -32,13 +32,15 @@ public class dersAyarlari extends AppCompatActivity {
     final ArrayList<String> derece = new ArrayList<String>();
     private ExpandableListView expandlist_viewYGS;
 
+    DataBase db=new DataBase(dersAyarlari.this);
 
     private ArrayList<dersEkle> dersTitle;
     private dersAyarlariExpadapter dersAyarexpand_adapter;
     private HashMap<dersEkle,ogrtEkle> ogrt;
     final ArrayList<ogrtEkle> ogrtKayit= new ArrayList<ogrtEkle>();
-    final ogrtEkle ogrtKayit1= new ogrtEkle("FİZİK"," hulya@gmail.com","Hülya ÜKTE",0,0);
-    final ogrtEkle ogrtKayit2= new ogrtEkle("KİMYA"," mustafa@gmail.com","Mustafa DUt",1,2);
+    final ogrtEkle ogrtKayit1= new ogrtEkle("MATEMATİK"," hulya@gmail.com","Hülya ÜKTE",0,1);
+    final ogrtEkle ogrtKayit2= new ogrtEkle("GEOMETRİ"," mustafa@gmail.com","Mustafa DUt",1,3);
+    final ogrtEkle ogrtKayit3= new ogrtEkle("FİZİK"," mustafa@gmail.com","Mustafa DUt",2,5);
     private ExpandableListView dersAyarexpandlist;
 
 
@@ -92,14 +94,15 @@ public class dersAyarlari extends AppCompatActivity {
 
             dersTitle=new ArrayList<dersEkle>();
             ogrt=new HashMap<dersEkle,ogrtEkle>();
-            dersTitle.add(new dersEkle("FİZİK",0));
-            dersTitle.add(new dersEkle("KİMYA",2));
+            dersTitle.add(new dersEkle("MATEMATİK",1));
+            dersTitle.add(new dersEkle("GEOMETRİ",3));
+            dersTitle.add(new dersEkle("FİZİK",5));
 
-           // ogrtKayit.add(new ogrtEkle("FİZİK"," hulya@gmail.com","Hülya ÜKTE",0,0));
-           // ogrtKayit.add(new ogrtEkle("KİMYA"," mustafa@gmail.com","Mustafa DUt",1,2));
+
 
             ogrt.put(dersTitle.get(0),ogrtKayit1);
             ogrt.put(dersTitle.get(1),ogrtKayit2);
+            ogrt.put(dersTitle.get(2),ogrtKayit3);
         }catch (Exception ex)
         {
             int durtion = Toast.LENGTH_LONG;
@@ -131,6 +134,23 @@ public class dersAyarlari extends AppCompatActivity {
             toast.show();
         }
     }
+
+    private void ogretmenKaydet(int ID,String adSoyad,String ePosta)
+    {
+        db.Open();
+        db.ogrtKaydet(ID,adSoyad,ePosta);
+        db.Close();
+    }
+
+    private String[] ogrtbilgisi(int ID)
+    {
+        db.Open();
+        String []ogrtbilgi=db.ogrtBilgiGetir(ID);
+
+        db.Close();
+        return ogrtbilgi;
+    }
+
     private class dersAyarlariExpadapter extends BaseExpandableListAdapter{
         private ArrayList<dersEkle> list_parent;
         private HashMap<dersEkle, ogrtEkle> list_child;
@@ -233,7 +253,7 @@ public class dersAyarlari extends AppCompatActivity {
 
                 // kaçıncı pozisyonda ise başlığımızın elemanı onun ismini alarak string e atıyoruz
 
-                ogrtEkle ogrt=(ogrtEkle) getChild(groupPosition,childPosition);
+                final ogrtEkle ogrt=(ogrtEkle) getChild(groupPosition,childPosition);
 
                 if (view == null) {
                     inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -252,15 +272,24 @@ public class dersAyarlari extends AppCompatActivity {
                 ogrtAD =(TextView ) view.findViewById(R.id.ogrtAdSoyadView);
                 ogrtAD.setText("Ad Soyad : ");
                 adSoyadtext=(EditText) view.findViewById(R.id.ogrtAdSoyadText);
-                adSoyadtext.setText(ogrt.getAdSoyad());
+
 
                 postaChild=(TextView) view.findViewById(R.id.ogrtPostaViewChild);
                 postaChild.setText("E-posta");
                 postaText=(EditText) view.findViewById(R.id.ogrtPostaTExt);
-                postaText.setText(ogrt.getPosta());
+                String []ogrtBilgi;
 
-                gonder=(Button) view.findViewById(R.id.gonderbtn);
-                //  gonder.setText("DEĞİŞİKLİKLERİ KAYDET");
+                ogrtBilgi=ogrtbilgisi(ogrt.getDersID());
+                adSoyadtext.setText(ogrtBilgi[0]);
+                postaText.setText(ogrtBilgi[1]);
+
+                gonder=(Button) view.findViewById(R.id.ogrtKaydetBtn);
+                gonder.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        ogretmenKaydet(ogrt.getDersID(),adSoyadtext.getText().toString(),postaText.getText().toString());
+                    }
+                });
 
 
             }
