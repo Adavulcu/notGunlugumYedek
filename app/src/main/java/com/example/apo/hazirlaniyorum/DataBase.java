@@ -358,10 +358,31 @@ public class DataBase  {
         return null;
     }
 
+    public void konuBitti(int ıd) {
+        ContentValues cv=new ContentValues();
+        cv.put(konuTblKeyKonuTik,1);
+        MyDateBase.update(konularTbl,cv,konuTblKeyID+"="+ıd,null);
+    }
 
+    public String sorsayisibul(int ıd) {
+        try {
 
+            String[] soruColoum=new String[]{soruTblKeyID,soruTblKeyKonuID,soruTblKeyGsoru,soruTblKeyHsoru,soruTblKeyAsoru,
+                    soruTblKeyYsoru,soruTblKeyGtest,soruTblKeyHtest,soruTblKeyAtest,soruTblKeyYtest};
+            int soruSayisi=0;
 
+            Cursor c=MyDateBase.query(sorularTbl,soruColoum,soruTblKeyKonuID+"="+ıd,null,null,null,null);
+            for (c.moveToFirst();!c.isAfterLast();c.moveToNext())
+            {
+                soruSayisi=soruSayisi+c.getInt(2)+c.getInt(3)+c.getInt(4)+c.getInt(5);
+            }
 
+            return String.valueOf(soruSayisi);
+        }catch (Exception ex)
+        {
+            return "-1";
+        }
+    }
 
 
     protected class DataBaseHelper extends SQLiteOpenHelper{

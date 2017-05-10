@@ -123,7 +123,7 @@ public class dersAyarlari extends AppCompatActivity {
 
             derece.add("                  50               100                  150");
             derece.add("                  75               150                  225");
-            derece.add("                  10               200                  300");
+            derece.add("                  100              200                  300");
 
 
            hedef.put(title.get(0), derece);

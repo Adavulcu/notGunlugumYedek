@@ -47,7 +47,6 @@
             android:layout_height="54dp"
             android:ems="10"
             android:inputType="number"
-            android:text=""
-            tools:text="0" />
+            android:text="0" />
     </LinearLayout>
 </LinearLayout>

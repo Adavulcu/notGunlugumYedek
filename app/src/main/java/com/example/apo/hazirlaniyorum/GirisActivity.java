@@ -5,6 +5,7 @@ import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,10 +28,10 @@ public class GirisActivity extends AppCompatActivity {
         else {
           try {
               Random rnd=new Random();
-              final TextView icon = (TextView) findViewById(R.id.iconText);
+              final ImageView icon = (ImageView) findViewById(R.id.ngIcon);
               final TextView ozluSoz = (TextView) findViewById(R.id.ozluSozText);
               final TextView soyleyen = (TextView) findViewById(R.id.ozluSozSoyleyenText);
-             int ID=rnd.nextInt(3)+1;
+             int ID=rnd.nextInt(4)+1;
               db.Open();
                // ozluSoz.setText(Integer.toString(ID));
               String Soz=db.ozluSozBul(ID);

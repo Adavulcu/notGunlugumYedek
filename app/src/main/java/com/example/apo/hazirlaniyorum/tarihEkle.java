@@ -28,6 +28,7 @@ public class tarihEkle  extends AppCompatActivity{
     private DatePicker datePicker;
     private Calendar calendar;
     private TextView dateViewYgs,getDateViewLys;
+    public static TextView ygsTarih,lysTarih;
     private int year, month, day;
 
     public void onBackPressed() {
@@ -50,6 +51,8 @@ public class tarihEkle  extends AppCompatActivity{
 
         dateViewYgs = (TextView) findViewById(R.id.ygsTarihShow);
         getDateViewLys = (TextView) findViewById(R.id.lysTarihShow);
+        lysTarih=(TextView)findViewById(R.id.lysKalanGunView);
+        ygsTarih=(TextView)findViewById(R.id.ygsKalanGunView);
         calendar = Calendar.getInstance();
         year = calendar.get(Calendar.YEAR);
 
@@ -110,10 +113,25 @@ public class tarihEkle  extends AppCompatActivity{
                 public void onDateSet(DatePicker arg0,
                                       int arg1, int arg2, int arg3) {
                     // TODO Auto-generated method stub
+                    try {
+
+                        showDateYgs(arg1, arg2+1, arg3);
+                        Integer date=(arg3-day)+((arg1-year)*365)+((arg2-month)*30);
+                       ygsTarih.setText(String.valueOf(date));
+                      //  anaSayfa.anasayfaYGS.setText(String.valueOf(date));
+
+
+                    }
+                    catch (Exception ex)
+                    {
+                        int durtion = Toast.LENGTH_LONG;
+                        Toast toast = Toast.makeText(tarihEkle.this, ex.getMessage() + " tarih", durtion);
+                        toast.show();
+                    }
                     // arg1 = year
                     // arg2 = month
                     // arg3 = day
-                    showDateYgs(arg1, arg2+1, arg3);
+
 
                 }
             };
@@ -126,8 +144,19 @@ public class tarihEkle  extends AppCompatActivity{
                     // arg1 = year
                     // arg2 = month
                     // arg3 = day
+                    try {
 
-                    showDateLys(arg1, arg2+1, arg3);
+                        showDateLys(arg1, arg2+1, arg3);
+                        Integer date=(arg3-day)+((arg1-year)*365)+((arg2-month)*30);
+                        lysTarih.setText(String.valueOf(date));
+                       // anaSayfa.anasayfaLYS.setText(String.valueOf(date));
+                    } catch (Exception ex)
+                    {
+                        int durtion = Toast.LENGTH_LONG;
+                        Toast toast = Toast.makeText(tarihEkle.this, ex.getMessage() + " tarih", durtion);
+                        toast.show();}
+
+
                 }
             };
 

@@ -23,13 +23,19 @@ public class ozluSozEkle {
             ////
             ozluSoz.add("İnsanoğlu için en kutsan ibader ; \n" +
                     "Çalışmak ,doğruluk ve insan sevgisidir.");
-            soyleyen.add("Hacı Bektaş-i Veli");
+            soyleyen.add("HACI BEKTAŞ-İ VELİ");
 
             ////
             ozluSoz.add("Sevdiğiniz mesleği seçin. \n" +
                     "Böylece bir gün bile çalışmak\n" +
                     "zorunda kalmazsınız.");
-            soyleyen.add("Kofüçyus");
+            soyleyen.add("KONFÜÇYUS");
+
+            ///
+           ozluSoz.add(" Pek çok insan diğerlerinin boşa \n" +
+                    "zamanı kullanarak öne gecer.");
+            soyleyen.add("HERR FORD");
+
         }catch (Exception ex)
         {
 

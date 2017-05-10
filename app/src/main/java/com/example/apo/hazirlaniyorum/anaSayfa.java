@@ -16,6 +16,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ExpandableListView;
+import android.widget.ImageView;
 import android.widget.TabHost;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -28,9 +29,13 @@ import java.util.HashMap;
  */
 
 public class anaSayfa extends AppCompatActivity {
-
+    public static int zorluk=1;
+    private int hedef1=50;
+    private int hedef2=100;
+    private int hedef3=150;
     TabHost tabHost;
     Context contex = this;
+    public static TextView anasayfaLYS,anasayfaYGS;
     DataBase db=new DataBase(anaSayfa.this);
 //////////////////////////////////////////////////YGS BÖLÜMÜ
 
@@ -115,9 +120,16 @@ public class anaSayfa extends AppCompatActivity {
         setContentView(R.layout.anasayfa);
         try {
 
-            TextView ygsView=(TextView)findViewById(R.id.anasayaYGSkalanView);
-            TextView lysView=(TextView)findViewById(R.id.anasayfaLYSkalanView);
+            anasayfaYGS=(TextView)findViewById(R.id.anasayaYGSkalanView);
+            anasayfaLYS =(TextView)findViewById(R.id.anasayfaLYSkalanView);
+            try {
+                anasayfaYGS.setText(tarihEkle.ygsTarih.getText());
+                anasayfaLYS.setText(tarihEkle.lysTarih.getText());
+            }
+            catch (Exception ex)
+            {}
 
+            ImageView image=(ImageView)findViewById(R.id.ngIcon1);
             toplamBitemKonu();
 
             // tabHost = getTabHost();
@@ -334,6 +346,13 @@ public class anaSayfa extends AppCompatActivity {
                     db.Open();
                   db.soruVeTestGir(id,sorusayisi,testsayisi);
                    db.Close();
+                    String bitensoru=SorularSayisiBul(id);
+                    int  bitenSorusayisi=Integer.valueOf(bitensoru);
+                    if(bitenSorusayisi>=hedef3)
+                    {
+                        konuTik(id);
+                        toplamBitemKonu();
+                    }
                     expandlist_viewYGS.setAdapter(expand_adapterYGS);
                     expandlist_viewLYS.setAdapter(expand_adapterLYS);
                     // dersAyarlari ders=new dersAyarlari();
@@ -371,6 +390,21 @@ public class anaSayfa extends AppCompatActivity {
         }
     }
 
+    private void konuTik(int ID)
+    {
+        try {
+            db.Open();
+            db.konuBitti(ID);
+
+            db.Close();
+        }catch (Exception ex)
+        {
+            int durtion = Toast.LENGTH_LONG;
+            Toast toast = Toast.makeText(this, ex.getMessage() + " konut bitti", durtion);
+            toast.show();
+        }
+
+    }
 
     public void clickMe(View view) {
         Button ID = (Button) view;
@@ -407,6 +441,14 @@ public class anaSayfa extends AppCompatActivity {
         return "-1";
 
     }
+
+    private String SorularSayisiBul(int ıd) {
+        db.Open();
+      String sayi=  db.sorsayisibul(ıd);
+        db.Close();
+        return sayi;
+    }
+
     private void chechKontrol()
     {
         expandlist_viewYGS.setAdapter(expand_adapterYGS);
@@ -487,8 +529,11 @@ public class anaSayfa extends AppCompatActivity {
                 inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                 view = inflater.inflate(R.layout.dersler,null);
             }
-            String bitenkonu=bitenKonular(ders.getID());
+
             String bitensoru=toplamSorular(ders.getID());
+
+
+            String bitenkonu=bitenKonular(ders.getID());
             bitenKonu=(TextView)view.findViewById(R.id.bitenKonu);
             bitenKonu.setText(bitenkonu);
             bitenSoru=(TextView)view.findViewById(R.id.bitenSoru);
@@ -517,6 +562,8 @@ public class anaSayfa extends AppCompatActivity {
                     // fonksiyon adından da anlaşılacağı gibi parent a bağlı elemanlarının layoutunu inflate ediyoruz böylece o görüntüye ulaşmış oluyoruz
                 }
 
+
+
                 // listview_child ulaştığımıza göre içindeki bileşeni de kullanabiliyoruz daha sonradan view olarak return ediyoruz
                 txt_child = (CheckBox) view.findViewById(R.id.konuAd);
                 txt_child.setText(konu.getKonuAd());
@@ -525,16 +572,10 @@ public class anaSayfa extends AppCompatActivity {
                 ID.setText("soru gir");
 
 
-
-
-
-
             ID.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     soruTestGir(konu.getID(),konu.getKonuAd());
-
-
                 }
             });
 
@@ -550,13 +591,14 @@ public class anaSayfa extends AppCompatActivity {
 
         }
 
-
-        @Override
+    @Override
         public boolean isChildSelectable(int i, int i1) {
             return true;
         }
 
     }
+
+
 }
 
 
