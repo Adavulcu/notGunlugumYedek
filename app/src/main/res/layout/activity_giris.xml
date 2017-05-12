@@ -40,7 +40,7 @@
         android:id="@+id/ngIcon"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        app:srcCompat="@drawable/ng"
+        app:srcCompat="@drawable/tosba"
         android:layout_above="@+id/ozluSozText"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="54dp" />

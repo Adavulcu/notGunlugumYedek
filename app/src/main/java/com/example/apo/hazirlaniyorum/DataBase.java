@@ -27,6 +27,8 @@ public class DataBase  {
     private static final String raporTbl="raporTbl";
     private static final String uniqueTbl="uniqueTbl";
     private static final int dataBaseVersion=1;
+    ArrayList<String >tumkonular=new ArrayList<String>();
+
 
      final Context MyContext;
      DataBaseHelper dataBaseHelper;
@@ -384,6 +386,16 @@ public class DataBase  {
         }
     }
 
+    private void dersKonularıEkle(String[] konular)
+    {
+
+        for ( int i=0;i<konular.length;i++)
+        {
+         tumkonular.add(konular[i]);
+        }
+
+    }
+
 
     protected class DataBaseHelper extends SQLiteOpenHelper{
 
@@ -399,14 +411,15 @@ public class DataBase  {
         public void onCreate(SQLiteDatabase sqLiteDatabase) {
             try {
                 //dersler tablosu bölümü
-                String [] dersler= new String[]{"MATEMATİK","MATEMATİK","GEOMETRİ","GEOMETRİ","FİZİK","FİZİK"};
+                String [] dersler= new String[]{"MATEMATİK","GEOMETRİ","FİZİK","KİMYA", "BİYOLOJİ","TÜRKCE","COĞRAFYA",
+                  "TARİH","MATEMATİK","GEOMETRİ","FİZİK","KİMYA", "BİYOLOJİ","EDEBİYAT","COĞRAFYA","TARİH","FELSEFE"};
+
                 sqLiteDatabase.execSQL(" CREATE TABLE "+derslerTbl+"(" +
                         DersTblKeyID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
                         DersTblKeyDersAd + " TEXT NOT NULL," +
                         DersTblKeyToplamSoru + " INTEGER DEFAULT 0 ," +
                         DersTblKeyToplamKonu + " INTEGER DEFAULT 0 ," +
                         DersTblKeyToplamTest +  " INTEGER DEFAULT 0 );");
-
 
                 ContentValues cv=new ContentValues();
                 for (int i=0;i<dersler.length;i++)
@@ -415,11 +428,125 @@ public class DataBase  {
                     sqLiteDatabase.insert(derslerTbl,null,cv);
                 }
                 //kaonular tablosu bölümü
-                String[] konular=new String[]{"Sayılar","Sayı Basamakları","Bölme ve Bölünebilme","Rasyonel Sayılar",
+              /*  String[] konular=new String[]{"Sayılar","Sayı Basamakları","Bölme ve Bölünebilme","Rasyonel Sayılar",
                         "Basit Eşitsizlikler","Mutlak Değer","Doğruda ve Üçgende Açılar","Dik ve Özel Üçgenler",
                         "Dik Üçgende Trigonemetrik Bağıntılar","Doğruda ve Üçgende Açılar" ,"Dik ve Özel Üçgenler" ,
                         "Dik Üçgende Trigonemetrik Bağıntılar" ,"Fizik Bilimine Giriş","Vektör-Kuvvet ve Kuvvet Dengesi",
-                        "Basit Makineler","Fizik Bilimine Giriş","Vektör-Kuvvet ve Kuvvet Dengesi","Tork"};
+                        "Basit Makineler","Fizik Bilimine Giriş","Vektör-Kuvvet ve Kuvvet Dengesi","Tork"};*/
+
+              String [] matYgsKonular=new String[]{"Sayılar","Sayı Basamakları" , "Bölme ve Bölünebilme","OBEB-OKEK","Rasyonel Sayılar",
+                      "Basit Eşitsizlikler" , "Mutlak Değer", "Üslü Sayılar" , "Köklü Sayılar" , "Çarpanlara Ayırma", "Oran Orantı",
+                      "Denklem Çözme","Problemler","Kümeler", "Fonksiyonlar", "Permütasyon", "Kombinasyon", "Binom", "Olasılık",
+                      "İstatistik", "2. Dereceden Denklemler", "Karmaşık Sayılar", "Parabol", "Polinomlar"};
+                String[] matLysKonular=new String[]{"Sayılar", "Sayı Basamakları", "Bölünebilme", "OBEB-OKEK", "Rasyonel Sayılar",
+                        "Basit Eşitsizlikler", "Mutlak Değer" , "Üslü Sayılar", "Köklü Sayılar", "Çarpanlara Ayırma", "Oran Orantı",
+                        "Denklem Çözme", "Kümeler", "Fonksiyonlar", "Permütasyon","Kombinasyon", "Binom", "Olasılık", "İstatistik",
+                        "İkinci Dereceden Denklemler", "Karmaşık Sayılar", "Parabol", "Polinomlar", "Mantık", "Modüler Aritmetik",
+                        "Eşitsizlikler", "Logaritma", "Diziler", "Seriler", "Limit ve Süreklilik", "Türev", "İntegral"};
+                String [] geoYgsKonular=new String[]{"Doğruda ve Üçgende Açılar", "Dik ve Özel Üçgenler", "Dik Üçgende Trigonemetrik Bağıntılar",
+                        "İkizkenar ve Eşkenar Üçgen", "Üçgende Alanlar", "Üçgende Açıortay Bağıntıları", "Üçgende Kenarortay Bağıntıları",
+                        "Üçgende Eşlik ve Benzerlik", "Üçgende Açı-Kenar Bağıntıları", "Çokgenler", "Dörtgenler", "Yamuk",
+                        "Paralelkenar", "Eşkenar Dörtgen – Deltoid", "Dikdörtgen", "Çemberde Açılar", "Çemberde Uzunluk","Daire",
+                        "Prizmalar", "Piramitler", "Küre", "Koordinat Düzlemi ve Noktanın Analitiği", "Vektörler-1", "Doğrunun Analitiği",
+                        "Tekrar Eden, Dönen ve Yansıyan Şekiller"};
+                String [] geoLysKonular=new String[]{"Doğruda ve Üçgende Açılar", "Dik ve Özel Üçgenler", "Dik Üçgende Trigonemetrik Bağıntılar",
+                        "İkizkenar ve Eşkenar Üçgen", "Üçgende Alanlar", "Üçgende Açıortay Bağıntıları", "Üçgende Kenarortay Bağıntıları",
+                        "Üçgende Eşlik ve Benzerlik","Üçgende Açı-Kenar Bağıntıları", "Çokgenler", "Dörtgenler", "Yamuk", "Paralelkenar",
+                        "Eşkenar Dörtgen – Deltoid", "Dikdörtgen", "Çemberde Açılar", "Çemberde Uzunluk", "Daire", "Prizmalar", "Piramitler",
+                        "Küre", "Koordinat Düzlemi ve Noktanın Analitiği", "Vektörler-1", "Doğrunun Analitiği", "Tekrar Eden, Dönen ve Yansıyan Şekiller",
+                        "Uzay Geometri", "Dönüşümlerle Geometri", "Trigonometri", "Çemberin Analitiği", "Genel Konik Tanımı (Dış Merkezlik)",
+                        "Parabol", "Elips", "Hiperbol"};
+                String [] fizikYgsKonular=new String[]{"Fizik Bilimine Giriş", "Vektör-Kuvvet ve Kuvvet Dengesi", "Basit Makineler",
+                        "Madde ve Özellikleri","Sıvıların Kaldırma Kuvveti", "Basınç", "Isı ve Sıcaklık", "Genleşme", "Doğrusal Hareket",
+                        "Dinamik", "İş Enerji", "Işık ve Gölge", "Düzlem Ayna", "Küresel Aynalar", "Kırılma ve Renkler", "Merceler ve Aydınlanma",
+                        "Elektrostatik", "Elektrik Akımı ve Devreler", "Temel Dalga Bilgileri", "Yay Dalgaları", "Su Dalgaları", "Ses ve Deprem Dalgaları"};
+                String [] fizikLysKonular=new String[]{"Fizik Bilimine Giriş", "Vektör-Kuvvet ve Kuvvet Dengesi", "Tork", "Ağırlık Merkezi",
+                        "Basit Makineler", "Madde ve Özellikleri", "Sıvıların Kaldırma Kuvveti", "Basınç", "Isı ve Sıcaklık", "Genleşme",
+                        "Doğrusal Hareket", "Bağıl Hareket", "Dinamik", "Atışlar", "İş Enerji", "Dönme Hareketi", "Basit Harmonik Hareket",
+                        "İtme-Momentum","Kütle Çekimi -Kepler Kanunu- Büyük Patlama", "Işık ve Gölge", "Düzlem Ayna", "Küresel Aynalar",
+                        "Kırılma ve Renkler", "Merceler ve Aydınlanma", "Elektrostatik", "Elektrik Alan- Elektriksel Potansiyel ve İş",
+                        "Yüklü Parçacıkların Hareketi", "Elektrik Akımı ve Devreler", "Temel Dalga Bilgileri","Yay Dalgaları", "Su Dalgaları",
+                        "Ses ve Deprem Dalgaları", "Manyetizma", "Elektromanyetik İndüksüyon", "Sığaçlar", "Alternatik Akım ve Transformatör",
+                        "Dalga Mekaniği (Kırınım-Girişim-Doopler)", "Elektromanyetik Dalgalar", "Fotoelektrik ve Comptpn Olayı", "Özel Görelilik",
+                        "Atom Modelleri", "Atom Altı Parçacıklar", "Radyoaktivite","Modern Fiziğin Teknolojideki Uygulamaları"};
+                String [] kimyaYgsKonular=new String[]{"Kimya Bilimi", "Atom ve Yapısı", "Periyodik Sistem", "Kimyasal Türler Arası Etkileşimler",
+                        "Asitler-Bazlaar ve Tuzlar", "Bileşikler", "Kimyasal Tepkimeler", "Kimyanın Temel Yasaları", "Maddenin Halleri",
+                        "Karışımlar", "Endüstride ve Canlılarda Enerji", "Kimya Her Yerde"};
+                String []kimyaLYsKonular=new String[]{"Modern Atom Teorisi","Kimyasal Hesaplamalar", "Gazlar", "Sıvı Çözeltiler", "Kimya ve Enerji",
+                        "Tepkimelerde Hız", "Kimyasal Denge", "Sıvı Çözeltilerde Denge", "Kimya ve Elektrik", "Karbon Kimyasına Giriş",
+                        "Organik Bileşikler", "Hayatımızdaki Kimya"};
+                String [] biyolojiYgsKonular =new String[]{"Biyoloji Bilimi, İnorganik Bileşikler", "•Organik Bileşikler", "Hücre",
+                        "Madde Geçişleri", "DNA-RNA", "Protein Sentezi", "Enzimler", "Canlıların Sınıflandırılması", "Ekoloji", "Hücre Bölünmeleri",
+                        "Eşeysiz-Eşeyli Üreme", "İnsanda üreme ve Gelişme", "Mendel Genetiği", "Kan Grupları", "Cinsiyete Bağlı Kalıtım"};
+                String [] biyolojiLysKonular=new String[]{"Biyoloji Bilimi, İnorganik Bileşikler", "Organik Bileşikler", "Hücre",
+                        "Madde Geçişleri", "DNA-RNA", "Protein Sentezi", "Enzimler", "Canlıların Sınıflandırılması", "Ekoloji", "Hücre Bölünmeleri",
+                        "Eşeysiz-Eşeyli Üreme", "İnsanda üreme ve Gelişme", "Mendel Genetiği", "Kan Grupları", "Cinsiyete Bağlı Kalıtım",
+                        "Biyoteknoloji, Evrim", "Solunum", "Fotosentez", "Kemosentez", "Sistemler", "Duyu Organları"};
+                String [] turkceYgsKonular =new String[]{"Kelime Bilgisi","Cümle Bİlgisi","Paragraf Bilgisi","Sözcük Türleri",
+                "Ses Bilgisi ve Telaffuz","Anlatım Türleri","Yazım Kuralları ve Noktalama İşaretleri","Ankatım Bozuklukları"};
+                String [] edebiyatLysyKonular=new String[]{"Güzel Sanatlar ve Edebiyat","Coşku ve Heyecan Dile Getiren Metinler (Şiir)",
+                "Olay Çevresinde Oluşan Edebi Mtinler","Öğretici Metinler (Edebiyat 9. Sınıf)", "Tarih İçinde Türk Edebiyatı",
+                        "Destan Dönemi Türk Edebiyatı", "İslam Uygarlığı Çevresinde Gelişen Türk Edebiyatı","Batı Tesirindeki Türk Edebiyatına Giriş ",
+                "Tanzimat Dönemi Edebiyatı ","Servet-i Fünun Edebiyatı ","Milli Edebiyat Dönemi ","Cumhuriyet Dönemi Türk Edebiyatı ",
+                "Cumhuriyet Döneminde Öğretici Metinler","Cumhuriyet Döneminde Coşku ve Heyecanı Dile Getiren Metinler (Şiir)","Cumhuriyet Döneminde Olay Çevresinde Oluşan Edebi Metinler"};
+                String [] cografyaYgsKonular=new String[]{"Doğal Sistemler","Beşeri Sistemler","Türkiye Coğrafyası","Küresel Ortam","Çevre Ve Toplım"};
+                String[] cografyaLysKonuları=new String[]{"Doğal Sistemler", "Beşeri Sistemler", "Mekansal Sentez Türkiye", "Küresel Ortam: Bölgeler ve Ülkeler",
+                        "•Çevre ve Toplum", "Ekonomik Faaliyetler"};
+                String [] tarihYgsKonular=new String[]{"Tarih Bilimi","Uygarlığın Doğuşu ve İlk Uygarlıklar","İslam Tarihi ve Uygralığı",
+                "Türk İslam Devletleri","Türkiye Tarihi:Türkiye Selçukluları","Beylikten Devlete (1300-1453)","Dünya Gücü: Osmanlı Devleti (1453-1600) ",
+                "Arayış Yılları (17. Yüzyıl)","Avrupa ve Osmanlı Devleti (18. Yüzyıl)","En Uzun Yüzyıl (1800-1922)","Milli Mücadele’nin Hazırlık Dönemi",
+                "Kurtuluş Savaşı’nda Cepheler","Türk İnkılabı","Atatürkçülük ve Atatürk İlkeleri","•  Atatürk Dönemi Türk Dış Politikası"};
+                String [] tarihLysKonular=new String[]{"Tarih Bilimi", "Uygarlığın Doğuşu ve İlk Uygarlıklar", "İlk Türk Devletleri",
+                        "İslam Tarihi ve Uygarlığı", "Türk-İslam Devletleri", "Türkiye Tarihi", "Beylikten Devlete (1300-1453)",
+                        "Dünya Gücü: Osmanlı Devleti (1453-1600)", "Arayış Yılları (17. Yüzyıl)", "Avrupa ve Osmanlı Devleti (18. Yüzyıl)",
+                        "En Uzun Yüzyıl (1800-1922)", "1881’den 1919’a Mustafa Kemal", "Milli Mücadele’nin Hazırlık Dönemi", "Kurtuluş Savaşı’nda Cepheler",
+                        "Türk İnkılabı", "Atatürkçülük ve Atatürk İlkeleri", "Atatürk Dönemi Türk Dış Politikası", "Atatürk’ün Ölümü",
+                        "Yüzyılın Başlarında Dünya", "İkinci Dünya Savaşı", "Soğuk Savaş Dönemi", "Yumuşama Dönemi ve Sonrası", "Küreselleşen Dünya",
+                        "Türklerde Devlet Teşkilatı", "Türklerde Toplum Yapısı", "Türklerde Hukuk", "Türklerde Ekonomi",
+                        "Türklerde Eğitim", "Türklerde Sanat"};
+                String [] felsefeLysKonular=new String[]{"Mantığa Giriş", "Klasik Mantık", "Mantık ve Dil", "Sembolik Mantık",
+                "Psikoloji Bilimini Tanıyalım", "Psikolojinin Temel Süreçleri", "Öğrenme Bellek Düşünme", "Ruh Sağlığının Temelleri",
+                "Sosyolojiye Giriş", "Birey ve Toplum", "Toplumsal Yapı", "Toplumsal Değişme ve Gelişme","Toplum ve Kültür", "Toplumsal Kurumlar"};
+
+             ArrayList<Integer> konusayilari=new ArrayList<Integer>();
+                konusayilari.add(matYgsKonular.length);
+                konusayilari.add(geoYgsKonular.length);
+                konusayilari.add(fizikYgsKonular.length);
+                konusayilari.add(kimyaYgsKonular.length);
+                konusayilari.add(biyolojiYgsKonular.length);
+                konusayilari.add(turkceYgsKonular.length);
+                konusayilari.add(cografyaYgsKonular.length);
+                konusayilari.add(tarihYgsKonular.length);
+                konusayilari.add(matLysKonular.length);
+                konusayilari.add(geoLysKonular.length);
+                konusayilari.add(fizikLysKonular.length);
+                konusayilari.add(kimyaLYsKonular.length);
+                konusayilari.add(biyolojiLysKonular.length);
+                konusayilari.add(edebiyatLysyKonular.length);
+                konusayilari.add(cografyaLysKonuları.length);
+                konusayilari.add(tarihLysKonular.length);
+                konusayilari.add(felsefeLysKonular.length);
+
+                dersKonularıEkle(matYgsKonular);
+                dersKonularıEkle(geoYgsKonular);
+                dersKonularıEkle(fizikYgsKonular);
+                dersKonularıEkle(kimyaYgsKonular);
+                dersKonularıEkle(biyolojiYgsKonular);
+                dersKonularıEkle(turkceYgsKonular);
+                dersKonularıEkle(cografyaYgsKonular);
+                dersKonularıEkle(tarihYgsKonular);
+                dersKonularıEkle(matLysKonular);
+                dersKonularıEkle(geoLysKonular);
+                dersKonularıEkle(fizikLysKonular);
+                dersKonularıEkle(kimyaLYsKonular);
+                dersKonularıEkle(biyolojiLysKonular);
+                dersKonularıEkle(edebiyatLysyKonular);
+                dersKonularıEkle(cografyaLysKonuları);
+                dersKonularıEkle(tarihLysKonular);
+                dersKonularıEkle(felsefeLysKonular);
+
+
+
                 sqLiteDatabase.execSQL(" CREATE TABLE "+konularTbl+"(" +
                       konuTblKeyID+  " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                        konuTblKeydersID+ " INTEGER NOT NULL, " +
@@ -432,7 +559,24 @@ public class DataBase  {
                         konuTblKeyKonuTik+" INTEGER DEFAULT 0);");
                 cv=new ContentValues();
                 int dersCounter=1;
-                for (int i=0;i<konular.length;i++)
+                int konuCounter=0;
+
+                for (int i=0;i<dersler.length;i++)
+                {
+                    for (int j=0;j<konusayilari.get(i);j++)
+                    {
+                      cv.put(konuTblKeyKonuAd,tumkonular.get(konuCounter));
+                       cv.put(konuTblKeydersID,dersCounter);
+                       sqLiteDatabase.insert(konularTbl,null,cv);
+                        konuCounter++;
+                    }
+                    dersCounter++;
+                }
+
+
+
+
+              /*  for (int i=0;i<konular.length;i++)
                 {
                     if(i>0 && i%3==0)
                         dersCounter++;
@@ -440,7 +584,7 @@ public class DataBase  {
                     cv.put(konuTblKeydersID,dersCounter);
                     sqLiteDatabase.insert(konularTbl,null,cv);
                 }
-
+                */
                 //sorular tablosu bölümü
                 cv=new ContentValues();
                 sqLiteDatabase.execSQL(" CREATE TABLE "+sorularTbl+"(" +
@@ -456,7 +600,7 @@ public class DataBase  {
                         soruTblKeyYtest+" INTEGER DEFAULT 0);");
 
 
-                for (int i=0;i<konular.length;i++)
+               for (int i=0;i<tumkonular.size();i++)
                 {
                     cv.put(soruTblKeyKonuID,(i+1));
                     sqLiteDatabase.insert(sorularTbl,null,cv);
@@ -566,6 +710,8 @@ public class DataBase  {
             onCreate(sqLiteDatabase);
         }
     }
+
+
 
 
 }

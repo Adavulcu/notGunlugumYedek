@@ -32,13 +32,19 @@ public class GirisActivity extends AppCompatActivity {
               final TextView ozluSoz = (TextView) findViewById(R.id.ozluSozText);
               final TextView soyleyen = (TextView) findViewById(R.id.ozluSozSoyleyenText);
              int ID=rnd.nextInt(4)+1;
-              db.Open();
-               // ozluSoz.setText(Integer.toString(ID));
-              String Soz=db.ozluSozBul(ID);
-              String soyleyenKisi=db.soyleyenBUl(ID);
-              ozluSoz.setText(Soz);
-              soyleyen.setText(soyleyenKisi);
-            db.Close();
+              try {
+                  db.Open();
+                  // ozluSoz.setText(Integer.toString(ID));
+                  String Soz=db.ozluSozBul(ID);
+                  String soyleyenKisi=db.soyleyenBUl(ID);
+                  ozluSoz.setText(Soz);
+                  soyleyen.setText(soyleyenKisi);
+                  db.Close();
+              }catch (Exception ex)
+              {
+
+              }
+
               Handler handler = new Handler();
 
               handler.postDelayed(new Runnable() {
