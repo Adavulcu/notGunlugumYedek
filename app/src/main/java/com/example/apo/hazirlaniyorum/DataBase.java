@@ -40,6 +40,7 @@ public class DataBase  {
      static final String DersTblKeyToplamSoru="toplamSoru";
      static final String DersTblKeyToplamKonu="toplamKonu";
      static final String DersTblKeyToplamTest="toplamTest";
+    static final String DersTblKeyToplamSure="toplamSure";
 
 
     //konular tablosunun kolonları
@@ -54,6 +55,7 @@ public class DataBase  {
      static  final String konuTblKeyAreset="Areset";
      static  final String konuTblKeyYreset="Yreset";
      static final String konuTblKeyKonuTik="konuTik";
+    static final String konuTblKeyKonuSec="secim";
 
     //sorluar tablosunun kolonları
      static  final String soruTblKeyID="ID";
@@ -66,6 +68,10 @@ public class DataBase  {
      static  final String soruTblKeyHtest="Htest";
      static  final String soruTblKeyAtest="Atest";
      static  final String soruTblKeyYtest="Ytest";
+     static final String soruTblKeyGsure="GSure";
+    static final String soruTblKeyHsure="HSure";
+    static final String soruTblKeyAsure="ASure";
+    static final String soruTblKeyYsure="YSure";
 
     //kayit tablosunun kolonları
      static final String kayitTblKeyID="ID";
@@ -177,7 +183,7 @@ public class DataBase  {
     {
         try {
             String[] konuColoum=new String[]{konuTblKeyID,konuTblKeydersID,konuTblKeyKonuAd,konuTblKeyBtarih,
-                    konuTblKeyGreset,konuTblKeyHreset,konuTblKeyAreset,konuTblKeyYreset,konuTblKeyKonuTik};
+                    konuTblKeyGreset,konuTblKeyHreset,konuTblKeyAreset,konuTblKeyYreset,konuTblKeyKonuTik,konuTblKeyKonuSec};
             int counter=0;
 
             Cursor c=MyDateBase.query(konularTbl,konuColoum,konuTblKeyKonuTik+"=1",null,null,null,null);
@@ -217,7 +223,7 @@ public class DataBase  {
 
     }
 
-    public void soruVeTestGir(int id, int sorusayisi, int testsayisi) {
+    public void soruVeTestGir(int id, int sorusayisi, int testsayisi,int sure) {
         try {
 
          /*   String querySoruTbl="UPDATE "+sorularTbl+" SET "+soruTblKeyGsoru+"=("+soruTblKeyGsoru+"+"+sorusayisi+") , "+soruTblKeyGtest+"=("+soruTblKeyGtest+"+"+testsayisi+") WHERE" +soruTblKeyKonuID+"="+id+"  ";
@@ -226,37 +232,44 @@ public class DataBase  {
             MyDateBase.execSQL(queryDersTbl);*/
 
             String[] soruColoum=new String[]{soruTblKeyID,soruTblKeyKonuID,soruTblKeyGsoru,soruTblKeyHsoru,soruTblKeyAsoru,
-                    soruTblKeyYsoru,soruTblKeyGtest,soruTblKeyHtest,soruTblKeyAtest,soruTblKeyYtest};
+                    soruTblKeyYsoru,soruTblKeyGtest,soruTblKeyHtest,soruTblKeyAtest,soruTblKeyYtest,soruTblKeyGsure,soruTblKeyHsure,soruTblKeyAsure,
+            soruTblKeyYsure};
             Cursor c=MyDateBase.query(sorularTbl,soruColoum,soruTblKeyKonuID+"="+id,null,null,null,null);
             int soru=0;
             int test=0;
+            int dakika=0;
             if(c!=null)
             {
                 c.moveToFirst();
                 soru=c.getInt(2);
                 test=c.getInt(6);
+                dakika=c.getInt(10);
 
             }
             ContentValues cv=new ContentValues();
             cv.put(soruTblKeyGtest,(testsayisi+test));
             cv.put(soruTblKeyGsoru, (sorusayisi+soru));
+            cv.put(soruTblKeyGsure,(sure+dakika));
             MyDateBase.update(sorularTbl,cv,soruTblKeyKonuID+"="+id,null);
 
             //dersler
             String [] dersColoum=new String[]{DersTblKeyID,DersTblKeyDersAd,DersTblKeyToplamSoru,
-                    DersTblKeyToplamKonu,DersTblKeyToplamTest};
+                    DersTblKeyToplamKonu,DersTblKeyToplamTest,DersTblKeyToplamSure};
             Cursor c1=MyDateBase.query(derslerTbl,dersColoum,DersTblKeyID+" IN (SELECT "+konuTblKeydersID+" FROM "+konularTbl+" WHERE "+konuTblKeyID+"="+id+")",null,null,null,null);
            int dersSoru=0;
             int dersTest=0;
+            int dersSure=0;
            if(c1!=null)
            {
                c1.moveToFirst();
                 dersSoru=c1.getInt(2);
                 dersTest=c1.getInt(4);
+               dersSure=c1.getInt(5);
           }
            cv=new ContentValues();
            cv.put(DersTblKeyToplamSoru,(sorusayisi+dersSoru));
             cv.put(DersTblKeyToplamTest,(testsayisi+dersTest));
+            cv.put(DersTblKeyToplamSure,(dakika+dersSure));
             MyDateBase.update(derslerTbl,cv,DersTblKeyID+" IN (SELECT "+konuTblKeydersID+" FROM "+konularTbl+" WHERE "+konuTblKeyID+"="+id+")",null);
 
         }catch (Exception ex)
@@ -314,12 +327,19 @@ public class DataBase  {
 
     public void ogrtKaydet(int ıd, String adSoyad, String ePosta) {
         try {
-            int a=ıd+1;
+            int a=ıd+8;
             ContentValues cv=new ContentValues();
             cv.put(ogrtKayitKeyAdSoyad,adSoyad);
             cv.put(ogrtKayitKeyEposta,ePosta);
-            MyDateBase.update(OgrtkayitTbl,cv,ogrtKayitKeyDersID+"="+ıd,null);
-            MyDateBase.update(OgrtkayitTbl,cv,ogrtKayitKeyDersID+"="+a,null);
+            if(ıd==17)
+            {
+                MyDateBase.update(OgrtkayitTbl,cv,ogrtKayitKeyDersID+"="+ıd,null);
+            }
+            else
+            { MyDateBase.update(OgrtkayitTbl,cv,ogrtKayitKeyDersID+"="+ıd,null);
+                MyDateBase.update(OgrtkayitTbl,cv,ogrtKayitKeyDersID+"="+a,null);
+            }
+
             int durtion = Toast.LENGTH_SHORT;
 
             Toast toast = Toast.makeText(MyContext, " degişiklikler kaydedilmiştir", durtion);
@@ -396,6 +416,37 @@ public class DataBase  {
 
     }
 
+    public int tikKontrol(int id) {
+        try {
+
+
+            String[] konuColoum = new String[]{konuTblKeyID, konuTblKeydersID, konuTblKeyKonuAd, konuTblKeyBtarih,
+                    konuTblKeyGreset, konuTblKeyHreset, konuTblKeyAreset, konuTblKeyYreset, konuTblKeyKonuTik, konuTblKeyKonuSec};
+            Cursor c = MyDateBase.query(konularTbl, konuColoum, konuTblKeyID + "=" + id, null, null, null, null);
+            int val = 0;
+            for (c.moveToFirst(); !c.isAfterLast(); c.moveToNext()) {
+                val = c.getInt(9);
+            }
+
+                return val;
+
+        }catch (Exception ex)
+        {
+           return -1;
+        }
+    }
+
+    public void konuSec(int id,int val) {
+        try {
+            ContentValues cv=new ContentValues();
+            cv.put(konuTblKeyKonuSec,val);
+            MyDateBase.update(konularTbl,cv,konuTblKeyID+"="+id,null);
+        }catch (Exception ex)
+        {
+
+        }
+    }
+
 
     protected class DataBaseHelper extends SQLiteOpenHelper{
 
@@ -419,7 +470,8 @@ public class DataBase  {
                         DersTblKeyDersAd + " TEXT NOT NULL," +
                         DersTblKeyToplamSoru + " INTEGER DEFAULT 0 ," +
                         DersTblKeyToplamKonu + " INTEGER DEFAULT 0 ," +
-                        DersTblKeyToplamTest +  " INTEGER DEFAULT 0 );");
+                        DersTblKeyToplamTest +  " INTEGER DEFAULT 0 ," +
+                        DersTblKeyToplamSure+ " INTEGER DEFAULT 0 );");
 
                 ContentValues cv=new ContentValues();
                 for (int i=0;i<dersler.length;i++)
@@ -556,7 +608,8 @@ public class DataBase  {
                         konuTblKeyHreset+" TEXT," +
                         konuTblKeyAreset+ " TEXT," +
                         konuTblKeyYreset+" TEXT," +
-                        konuTblKeyKonuTik+" INTEGER DEFAULT 0);");
+                        konuTblKeyKonuTik+ " INTEGER DEFAULT 0 ," +
+                        konuTblKeyKonuSec+ " INTEGER DEFAULT 0);");
                 cv=new ContentValues();
                 int dersCounter=1;
                 int konuCounter=0;
@@ -597,7 +650,11 @@ public class DataBase  {
                         soruTblKeyGtest+" INTEGER DEFAULT 0," +
                         soruTblKeyHtest+" INTEGER DEFAULT 0," +
                         soruTblKeyAtest+" INTEGER DEFAULT 0," +
-                        soruTblKeyYtest+" INTEGER DEFAULT 0);");
+                        soruTblKeyYtest+" INTEGER DEFAULT 0," +
+                        soruTblKeyGsure+ " INTEGER DEFAULT 0," +
+                        soruTblKeyHsure+" INTEGER DEFAULT 0," +
+                        soruTblKeyAsure+  " INTEGER DEFAULT 0," +
+                        soruTblKeyYsure+ " INTEGER DEFAULT 0);");
 
 
                for (int i=0;i<tumkonular.size();i++)

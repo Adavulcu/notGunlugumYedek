@@ -7,6 +7,7 @@ package com.example.apo.hazirlaniyorum;
 public class konuEkle {
     private String konuAd;
     private int ID;
+    private boolean checked;
 
     public konuEkle(String konduAd, int ID)
     {
@@ -34,5 +35,13 @@ public class konuEkle {
     public String toString()
     {
         return konuAd;
+    }
+
+    public boolean isChecked() {
+        return checked;
+    }
+
+    public void setChecked(boolean checked) {
+        this.checked = checked;
     }
 }

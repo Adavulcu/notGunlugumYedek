@@ -15,14 +15,14 @@ public class ozluSozEkle {
     
     public  ozluSozEkle() {
         try {
-            ozluSoz.add("Hiçbir şeye ihtiyacımız yok, \n" +
-                    "Yalnız bir şeye ihtiyacımız var ;\n" +
+            ozluSoz.add("Hiçbir şeye ihtiyacımız yok, " +
+                    "Yalnız\n bir şeye ihtiyacımız var ;\n" +
                     "Çalışkan olmak.");
             soyleyen.add("M.K. ATATÜRK");
 
             ////
-            ozluSoz.add("İnsanoğlu için en kutsan ibader ; \n" +
-                    "Çalışmak ,doğruluk ve insan sevgisidir.");
+            ozluSoz.add("İnsanoğlu için en kutsan ibader ; " +
+                    "Çalışmak\n ,doğruluk ve insan sevgisidir.");
             soyleyen.add("HACI BEKTAŞ-İ VELİ");
 
             ////
@@ -34,7 +34,7 @@ public class ozluSozEkle {
             ///
            ozluSoz.add(" Pek çok insan diğerlerinin boşa \n" +
                     "zamanı kullanarak öne gecer.");
-            soyleyen.add("HERR FORD");
+            soyleyen.add("HERRY FORD");
 
         }catch (Exception ex)
         {

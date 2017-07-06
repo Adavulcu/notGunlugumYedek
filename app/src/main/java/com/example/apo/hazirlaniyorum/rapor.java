@@ -114,8 +114,13 @@ public class rapor extends AppCompatActivity  {
 
 
             derslerYGS.add(new dersEkle("MATEMATİK",1));
-            derslerYGS.add(new dersEkle("GEOMETRİ",3));
-            derslerYGS.add(new dersEkle("FİZİK",5));
+            derslerYGS.add(new dersEkle("GEOMETRİ",2));
+            derslerYGS.add(new dersEkle("FİZİK",3));
+            derslerYGS.add(new dersEkle("KİMYA",4));
+            derslerYGS.add(new dersEkle("BİYOLOJİ",5));
+            derslerYGS.add(new dersEkle("TÜRKÇE",6));
+            derslerYGS.add(new dersEkle("COĞRAFYA",7));
+            derslerYGS.add(new dersEkle("TARİH",8));
 
 
             derslerListYGS.put(titleYGS.get(0), derslerYGS);
@@ -136,9 +141,16 @@ public class rapor extends AppCompatActivity  {
             titleLYS.add("DERS SEÇİMİ");
 
 
-            derslerLYS.add(new dersEkle("MATEMATİK",2));
-            derslerLYS.add(new dersEkle("GEOMETRİ",4));
-            derslerLYS.add(new dersEkle("FİZİK",6));
+            derslerLYS.add(new dersEkle("MATEMATİK",9));
+            derslerLYS.add(new dersEkle("GEOMETRİ",10));
+            derslerLYS.add(new dersEkle("FİZİK",11));
+            derslerLYS.add(new dersEkle("KİMYA",12));
+            derslerLYS.add(new dersEkle("BİYOLOJİ",13));
+            derslerLYS.add(new dersEkle("EDEBİYAT",14));
+            derslerLYS.add(new dersEkle("COĞRAFYA",15));
+            derslerLYS.add(new dersEkle("TARİH",16));
+            derslerLYS.add(new dersEkle("FELSEFE",17));
+
 
 
            derslerListLYS.put(titleLYS.get(0), derslerLYS);

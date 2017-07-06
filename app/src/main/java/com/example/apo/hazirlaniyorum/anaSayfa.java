@@ -4,8 +4,11 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Html;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -14,21 +17,24 @@ import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.TabHost;
 import android.widget.TextView;
 import android.widget.Toast;
-
+import android.preference.PreferenceManager;
 import java.util.ArrayList;
 import java.util.HashMap;
+import android.content.SharedPreferences;
+import java.util.List;
 
 /**
  * Created by Apo on 8.03.2017.
  */
 
-public class anaSayfa extends AppCompatActivity {
+public class anaSayfa extends AppCompatActivity implements ActionBar.OnNavigationListener {
 
     public static int zorluk=1;
     private int hedef1=50;
@@ -38,37 +44,19 @@ public class anaSayfa extends AppCompatActivity {
     Context contex = this;
     public static TextView anasayfaLYS,anasayfaYGS;
     DataBase db=new DataBase(anaSayfa.this);
+    SharedPreferences ayarlar;
 
 //////////////////////////////////////////////////YGS BÖLÜMÜ
 
     private ArrayList<dersEkle> dersListYgs;
     private anaSayfaExpadapter expand_adapterYGS;
     private HashMap<dersEkle, ArrayList<konuEkle>> konularListYGS;
-    final ArrayList<konuEkle> konularMatematikYGS = new ArrayList<konuEkle>();
-    final ArrayList<konuEkle> konularGeometriYGS = new ArrayList<konuEkle>();
-    final ArrayList<konuEkle> konularFizikYGS = new ArrayList<konuEkle>();
-    final ArrayList<konuEkle> konularKimyaYGS = new ArrayList<konuEkle>();
-    final ArrayList<konuEkle> konularBiyolojiYGS = new ArrayList<konuEkle>();
-    final ArrayList<konuEkle> konularTurkceYGS = new ArrayList<konuEkle>();
-    final ArrayList<konuEkle> konularCografyaYGS = new ArrayList<konuEkle>();
-    final ArrayList<konuEkle> konularTarihYGS = new ArrayList<konuEkle>();
-
     private ExpandableListView expandlist_viewYGS;
     /////////////////////////////////////////LYS bölümü
 
     private ArrayList<dersEkle> dersListLys;
     private anaSayfaExpadapter expand_adapterLYS;
     private HashMap<dersEkle, ArrayList<konuEkle>> konularListLYS;
-    final public ArrayList<konuEkle> konularMatematikLYS = new ArrayList<konuEkle>();
-    final public ArrayList<konuEkle> konularGeometriLYS = new ArrayList<konuEkle>();
-    final public ArrayList<konuEkle> konularFizikLYS = new ArrayList<konuEkle>();
-    final public ArrayList<konuEkle> konularKimyaLYS = new ArrayList<konuEkle>();
-    final public ArrayList<konuEkle> konularBiyolojiLYS = new ArrayList<konuEkle>();
-    final public ArrayList<konuEkle> konularEdebiyatLYS = new ArrayList<konuEkle>();
-    final public ArrayList<konuEkle> konularCografyaLYS = new ArrayList<konuEkle>();
-    final public ArrayList<konuEkle> konularTarihLYS = new ArrayList<konuEkle>();
-    final public ArrayList<konuEkle> konularFelsefeLYS = new ArrayList<konuEkle>();
-
     private ExpandableListView expandlist_viewLYS;
 
     ///////////////////////// menu bölümü
@@ -135,6 +123,8 @@ public class anaSayfa extends AppCompatActivity {
         setContentView(R.layout.anasayfa);
         try {
 
+
+
             anasayfaYGS=(TextView)findViewById(R.id.anasayaYGSkalanView);
             anasayfaLYS =(TextView)findViewById(R.id.anasayfaLYSkalanView);
             try {
@@ -188,9 +178,18 @@ public class anaSayfa extends AppCompatActivity {
 
     }
 
+
+
     private void HazırlaYGS() {
 
-
+        final ArrayList<konuEkle> konularMatematikYGS = new ArrayList<konuEkle>();
+        final ArrayList<konuEkle> konularGeometriYGS = new ArrayList<konuEkle>();
+        final ArrayList<konuEkle> konularFizikYGS = new ArrayList<konuEkle>();
+        final ArrayList<konuEkle> konularKimyaYGS = new ArrayList<konuEkle>();
+        final ArrayList<konuEkle> konularBiyolojiYGS = new ArrayList<konuEkle>();
+        final ArrayList<konuEkle> konularTurkceYGS = new ArrayList<konuEkle>();
+        final ArrayList<konuEkle> konularCografyaYGS = new ArrayList<konuEkle>();
+        final ArrayList<konuEkle> konularTarihYGS = new ArrayList<konuEkle>();
         // başlıklara bağlı elemenları tutmak için oluşturduk
         try {
             dersListYgs = new ArrayList<dersEkle>();
@@ -263,7 +262,15 @@ public class anaSayfa extends AppCompatActivity {
 
     private void HazırlaLYS() {
 
-
+        final  ArrayList<konuEkle> konularMatematikLYS = new ArrayList<konuEkle>();
+        final  ArrayList<konuEkle> konularGeometriLYS = new ArrayList<konuEkle>();
+        final  ArrayList<konuEkle> konularFizikLYS = new ArrayList<konuEkle>();
+        final  ArrayList<konuEkle> konularKimyaLYS = new ArrayList<konuEkle>();
+        final  ArrayList<konuEkle> konularBiyolojiLYS = new ArrayList<konuEkle>();
+        final  ArrayList<konuEkle> konularEdebiyatLYS = new ArrayList<konuEkle>();
+        final  ArrayList<konuEkle> konularCografyaLYS = new ArrayList<konuEkle>();
+        final  ArrayList<konuEkle> konularTarihLYS = new ArrayList<konuEkle>();
+        final  ArrayList<konuEkle> konularFelsefeLYS = new ArrayList<konuEkle>();
         // başlıklara bağlı elemenları tutmak için oluşturduk
         try {
             dersListLys = new ArrayList<dersEkle>();
@@ -391,7 +398,7 @@ public class anaSayfa extends AppCompatActivity {
 
 
 
-            alert.setTitle(konuadi+" ID: "+id);
+            alert.setTitle(konuadi);
             // this is set the view from XML inside AlertDialog
             alert.setView(alertLayout);
             // disallow cancel of AlertDialog on click of back button and outside touch
@@ -411,15 +418,19 @@ public class anaSayfa extends AppCompatActivity {
                 public void onClick(DialogInterface dialog, int which) {
                     TextView soruSayisi=(TextView) alertLayout.findViewById(R.id.soruSayisiView);
                     TextView testSayisi=(TextView) alertLayout.findViewById(R.id.testSayisiView);
+                    TextView sureMiktari=(TextView) alertLayout.findViewById(R.id.suretextView);
                     final EditText soruSayisiGir=(EditText)alertLayout.findViewById(R.id.soruSayisitext);
                     final EditText testSayisiGir=(EditText)alertLayout.findViewById(R.id.testSayisitext);
+                    final EditText sureGİr=(EditText) alertLayout.findViewById(R.id.sureeditText2);
                   final  String soru=soruSayisiGir.getText().toString();
                    final String test=testSayisiGir.getText().toString();
+                    final String sure=sureGİr.getText().toString();
 
                  int sorusayisi=Integer.parseInt(soru);
                    int testsayisi=Integer.parseInt(test);
+                    int suremiktari=Integer.parseInt(sure);
                     db.Open();
-                  db.soruVeTestGir(id,sorusayisi,testsayisi);
+                  db.soruVeTestGir(id,sorusayisi,testsayisi,suremiktari);
                    db.Close();
                     String bitensoru=SorularSayisiBul(id);
                     int  bitenSorusayisi=Integer.valueOf(bitensoru);
@@ -524,24 +535,61 @@ public class anaSayfa extends AppCompatActivity {
         return sayi;
     }
 
-    private void chechKontrol()
+    private boolean konuTikKontrol(int id)
     {
-        expandlist_viewYGS.setAdapter(expand_adapterYGS);
-        expandlist_viewLYS.setAdapter(expand_adapterLYS);
+        try {
+            db.Open();
+            int tik=db.tikKontrol(id);
+            db.Close();
+            if(tik==1)
+                return  true;
+            else
+                return false;
+        }catch (Exception ex)
+        {
+            int durtion = Toast.LENGTH_LONG;
+            Toast toast = Toast.makeText(this, ex.getMessage() + " konu tik kontrol", durtion);
+            toast.show();
+        }
+
+        return false;
     }
+    private void konuSec(int id,int val)
+    {
+        try {
+            db.Open();
+            db.konuSec( id,val);
+            db.Close();
+
+        }catch (Exception ex)
+        {
+            int durtion = Toast.LENGTH_LONG;
+            Toast toast = Toast.makeText(this, ex.getMessage() + " konu sec", durtion);
+            toast.show();
+        }
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(int itemPosition, long itemId) {
+        return false;
+    }
+
     private class anaSayfaExpadapter extends BaseExpandableListAdapter {
         private ArrayList<dersEkle>ListParent;
         private HashMap<dersEkle, ArrayList<konuEkle>> list_child;
         private Context context;
-
+        private CheckBox txt_child;
         private TextView dersAd;
         private TextView toplamKonu;
         private TextView toplamSoru;
         private TextView bitenSoru;
         private TextView bitenKonu;
         private Button ID;
-        private CheckBox txt_child;
+
         private LayoutInflater inflater;
+
+        private boolean [] getChecked;
+
         @Override
         public int getGroupCount() {
 
@@ -599,6 +647,8 @@ public class anaSayfa extends AppCompatActivity {
                                  View view, ViewGroup parent) {
 
             dersEkle ders=(dersEkle)getGroup(groupPosition);
+            int mgroupPosition=groupPosition;
+          //  getChecked=new boolean[getChildrenCount(mgroupPosition)];
             if(view == null)
             {
                 inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -627,27 +677,84 @@ public class anaSayfa extends AppCompatActivity {
                                  boolean isLastChild, View view, ViewGroup parent) {
             try {
 
-
+                final chiledHolder holder;
                 // kaçıncı pozisyonda ise başlığımızın elemanı onun ismini alarak string e atıyoruz
                 final konuEkle konu = (konuEkle) getChild(groupPosition, childPosition);
+                final int mChildPosition=childPosition;
+
 
                 if (view == null) {
                     inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                     view = inflater.inflate(R.layout.konular, null);
                     // fonksiyon adından da anlaşılacağı gibi parent a bağlı elemanlarının layoutunu inflate ediyoruz böylece o görüntüye ulaşmış oluyoruz
+                    // listview_child ulaştığımıza göre içindeki bileşeni de kullanabiliyoruz daha sonradan view olarak return ediyoruz
+                    holder=new chiledHolder();
+
+
+               // ID.setEnabled(false);
+
+
+                }
+                else
+                {
+                 holder=(chiledHolder)view.getTag();
+                   holder.cb.setOnCheckedChangeListener(null);
                 }
 
 
+                    holder.btn=(Button) view.findViewById(R.id.ID);
+                    holder.btn.setText("soru gir");
+                    holder.cb=(CheckBox) view.findViewById(R.id.konuAd);
+                    holder.cb.setText(konu.getKonuAd());
+                    holder.btn.setEnabled(konuTikKontrol(konu.getID()));
+                    holder.cb.setChecked(konuTikKontrol(konu.getID()));
+                    holder.cb.setTag(mChildPosition);
+                    view.setTag(holder);
+                    holder.cb.setFocusable(false);
 
-                // listview_child ulaştığımıza göre içindeki bileşeni de kullanabiliyoruz daha sonradan view olarak return ediyoruz
-                txt_child = (CheckBox) view.findViewById(R.id.konuAd);
-                txt_child.setText(konu.getKonuAd());
-                txt_child.setFocusable(false);
+
+/*
                 ID=(Button) view.findViewById(R.id.ID);
                 ID.setText("soru gir");
+                ID.setEnabled(false);
+                txt_child = (CheckBox) view.findViewById(R.id.konuAd);
+                txt_child.setText(konu.getKonuAd());
+                txt_child.setChecked(konuTikKontrol(konu.getID()));
 
 
-            ID.setOnClickListener(new View.OnClickListener() {
+                txt_child.setTag(mChildPosition);
+               view.setTag((txt_child));
+
+                txt_child.setFocusable(false);
+*/
+
+                holder.cb.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                    @Override
+                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+
+                        if(buttonView.isChecked())
+                        {
+                         konuSec(konu.getID(),1);
+                           buttonView.setChecked(true);
+                          holder.btn.setEnabled(true);
+                        }
+                        else {
+                            konuSec(konu.getID(),0);
+                            buttonView.setChecked(false);
+                            holder.btn.setEnabled(false);
+                        }
+                       // getChecked[mChildPosition]=isChecked;
+
+                      //  txt_child.setChecked(getChecked[mChildPosition]);
+                        int durtion = Toast.LENGTH_SHORT;
+                    //    Toast toast = Toast.makeText(context,  "ID="+konu.getID()+"    "+konu.getKonuAd()+" "+"   indis="+mChildPosition, durtion);
+                      //  toast.show();
+                    }
+                });
+
+
+
+            holder.btn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     soruTestGir(konu.getID(),konu.getKonuAd());
@@ -670,8 +777,13 @@ public class anaSayfa extends AppCompatActivity {
         public boolean isChildSelectable(int i, int i1) {
             return true;
         }
-
+        public class chiledHolder
+        {
+          protected Button btn;
+            protected  CheckBox cb;
+        }
     }
+
     String [] derslerYGS= new String[]{"MATEMATİK","GEOMETRİ","FİZİK","KİMYA", "BİYOLOJİ","TÜRKCE","COĞRAFYA",
             "TARİH"};
     String [] derslerLYS=new String[]{"MATEMATİK","GEOMETRİ","FİZİK","KİMYA", "BİYOLOJİ","EDEBİYAT","COĞRAFYA","TARİH","FELSEFE"};

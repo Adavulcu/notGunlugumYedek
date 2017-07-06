@@ -69,20 +69,21 @@ public class DateBaseTest extends DataBase {
         {
             sorukayitlar=sorukayitlar+c.getString(0)+"  "+c.getString(1)+"  "+c.getString(2)+"  "+c.getString(3)+"  "+
                     c.getString(4)+"  "+c.getString(5)+"  "+c.getString(6)+"  "+c.getString(7)+"  "+c.getString(8)+"  "+
-                    c.getString(9)+" \n ";
+                    c.getString(9)+"\n ";
         }
         return sorukayitlar;
     }
 
     public String konuKayitlar() {
         String[] konuColoum=new String[]{konuTblKeyID,konuTblKeydersID,konuTblKeyKonuAd,konuTblKeyBtarih,
-                konuTblKeyGreset,konuTblKeyHreset,konuTblKeyAreset,konuTblKeyYreset,konuTblKeyKonuTik};
+                konuTblKeyGreset,konuTblKeyHreset,konuTblKeyAreset,konuTblKeyYreset,konuTblKeyKonuTik,konuTblKeyKonuSec};
         Cursor c=MyDateBase.query(konularTbl,konuColoum,null,null,null,null,null);
         String konukayitlar="";
         for ( c.moveToFirst();!c.isAfterLast();c.moveToNext())
         {
             konukayitlar=konukayitlar+c.getString(0)+"  "+c.getString(1)+"  "+c.getString(2)+"  "+c.getString(3)+"  "+
-                    c.getString(4)+"  "+c.getString(5)+"  "+c.getString(6)+"  "+c.getString(7)+"  "+c.getString(8)+" \n ";
+                    c.getString(4)+"  "+c.getString(5)+"  "+c.getString(6)+"  "+c.getString(7)+"  "+c.getString(8)+
+                    c.getString(9)+" \n ";
 
         }
         return konukayitlar;

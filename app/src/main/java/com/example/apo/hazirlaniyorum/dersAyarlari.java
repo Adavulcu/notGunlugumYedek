@@ -39,8 +39,15 @@ public class dersAyarlari extends AppCompatActivity {
     private HashMap<dersEkle,ogrtEkle> ogrt;
     final ArrayList<ogrtEkle> ogrtKayit= new ArrayList<ogrtEkle>();
     final ogrtEkle ogrtKayit1= new ogrtEkle("MATEMATİK"," hulya@gmail.com","Hülya ÜKTE",0,1);
-    final ogrtEkle ogrtKayit2= new ogrtEkle("GEOMETRİ"," mustafa@gmail.com","Mustafa DUt",1,3);
-    final ogrtEkle ogrtKayit3= new ogrtEkle("FİZİK"," mustafa@gmail.com","Mustafa DUt",2,5);
+    final ogrtEkle ogrtKayit2= new ogrtEkle("GEOMETRİ"," mustafa@gmail.com","Mustafa DUt",1,2);
+    final ogrtEkle ogrtKayit3= new ogrtEkle("FİZİK"," mustafa@gmail.com","Mustafa DUt",2,3);
+    final ogrtEkle ogrtKayit4= new ogrtEkle("KİMYA"," mustafa@gmail.com","Mustafa DUt",3,4);
+    final ogrtEkle ogrtKayit5= new ogrtEkle("BİYOLOJİ"," mustafa@gmail.com","Mustafa DUt",4,5);
+    final ogrtEkle ogrtKayit6= new ogrtEkle("TÜRKÇE/EDEBİYAT"," mustafa@gmail.com","Mustafa DUt",5,6);
+    final ogrtEkle ogrtKayit7= new ogrtEkle("COĞRAFYA"," mustafa@gmail.com","Mustafa DUt",6,7);
+    final ogrtEkle ogrtKayit8= new ogrtEkle("TARİH"," mustafa@gmail.com","Mustafa DUt",7,8);
+    final ogrtEkle ogrtKayit9= new ogrtEkle("FELSEFE"," mustafa@gmail.com","Mustafa DUt",8,17);
+
     private ExpandableListView dersAyarexpandlist;
 
 
@@ -95,14 +102,24 @@ public class dersAyarlari extends AppCompatActivity {
             dersTitle=new ArrayList<dersEkle>();
             ogrt=new HashMap<dersEkle,ogrtEkle>();
             dersTitle.add(new dersEkle("MATEMATİK",1));
-            dersTitle.add(new dersEkle("GEOMETRİ",3));
-            dersTitle.add(new dersEkle("FİZİK",5));
-
-
+            dersTitle.add(new dersEkle("GEOMETRİ",2));
+            dersTitle.add(new dersEkle("FİZİK",3));
+            dersTitle.add(new dersEkle("KİMYA",4));
+            dersTitle.add(new dersEkle("BİYOLOJİ",5));
+            dersTitle.add(new dersEkle("TÜRKÇE/EDEBİYAT",6));
+            dersTitle.add(new dersEkle("COĞRAFYA",7));
+            dersTitle.add(new dersEkle("TARİH",8));
+            dersTitle.add(new dersEkle("FELSEFE",17));
 
             ogrt.put(dersTitle.get(0),ogrtKayit1);
             ogrt.put(dersTitle.get(1),ogrtKayit2);
             ogrt.put(dersTitle.get(2),ogrtKayit3);
+            ogrt.put(dersTitle.get(3),ogrtKayit4);
+            ogrt.put(dersTitle.get(4),ogrtKayit5);
+            ogrt.put(dersTitle.get(5),ogrtKayit6);
+            ogrt.put(dersTitle.get(6),ogrtKayit7);
+            ogrt.put(dersTitle.get(7),ogrtKayit8);
+            ogrt.put(dersTitle.get(8),ogrtKayit9);
         }catch (Exception ex)
         {
             int durtion = Toast.LENGTH_LONG;

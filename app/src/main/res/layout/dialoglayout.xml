@@ -7,7 +7,7 @@
 
     <LinearLayout
         android:layout_width="201dp"
-        android:layout_height="105dp"
+        android:layout_height="167dp"
         android:orientation="vertical"
         android:layout_weight="1.44">
 
@@ -16,6 +16,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1.07"
+            android:paddingTop="15dp"
             android:textAlignment="gravity"
             android:text="Soru Sayısı Gİr" />
 
@@ -23,30 +24,47 @@
             android:id="@+id/testSayisiView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:paddingTop="15dp"
             android:layout_weight="1.07"
             android:textAlignment="gravity"
             android:text="Test Sayısı Gir" />
+
+        <TextView
+            android:id="@+id/suretextView"
+            android:paddingTop="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.07"
+            android:text="Kaç Dakika Çalıştınız?" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="142dp"
-        android:layout_height="wrap_content"
+        android:layout_height="170dp"
         android:orientation="vertical">
 
         <EditText
             android:id="@+id/soruSayisitext"
             android:layout_width="122dp"
-            android:layout_height="56dp"
+            android:layout_height="54dp"
             android:ems="10"
             android:inputType="number"
             android:text="0" />
 
         <EditText
             android:id="@+id/testSayisitext"
-            android:layout_width="123dp"
+            android:layout_width="122dp"
             android:layout_height="54dp"
             android:ems="10"
             android:inputType="number"
             android:text="0" />
+
+        <EditText
+            android:id="@+id/sureeditText2"
+            android:layout_width="122dp"
+            android:layout_height="54dp"
+            android:ems="10"
+            android:inputType="number"
+            android:text="0"/>
     </LinearLayout>
 </LinearLayout>
