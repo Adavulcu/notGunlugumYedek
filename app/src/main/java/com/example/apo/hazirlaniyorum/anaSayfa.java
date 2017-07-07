@@ -1,5 +1,6 @@
 package com.example.apo.hazirlaniyorum;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -34,7 +35,7 @@ import java.util.List;
  * Created by Apo on 8.03.2017.
  */
 
-public class anaSayfa extends AppCompatActivity implements ActionBar.OnNavigationListener {
+public class anaSayfa extends AppCompatActivity  {
 
     public static int zorluk=1;
     private int hedef1=50;
@@ -569,10 +570,7 @@ public class anaSayfa extends AppCompatActivity implements ActionBar.OnNavigatio
         }
     }
 
-    @Override
-    public boolean onNavigationItemSelected(int itemPosition, long itemId) {
-        return false;
-    }
+
 
     private class anaSayfaExpadapter extends BaseExpandableListAdapter {
         private ArrayList<dersEkle>ListParent;
